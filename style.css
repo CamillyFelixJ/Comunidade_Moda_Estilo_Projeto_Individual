@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #FFF8EE;
+    font-family: 'Jost', sans-serif;
+    color: #1A1A1A;
+    padding-top: 60px;
+}
+
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+
+    background-color: rgba(255, 246, 233, 0.85); 
+    backdrop-filter: blur(8px);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    z-index: 1000;
+}
+
+.navbar .logo{
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+    margin-left: 0;
+}
+
+.navbar nav{
+    display: flex;
+    gap: 32px;
+}
+
+.navbar nav a{
+    position: relative;
+    text-decoration: none;
+    color: rgb(58, 53, 53);
+    font-size: 13px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: color 0.3 ease;
+    padding-bottom: 4px;
+}
+
+/*.navbar nav a:hover {
+  color: #E05C8A;  Cor rosa ao passar o mouse 
+}
+*/
+
+.navbar nav a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar nav a:hover::after, .navbar nav a.active::after {
+    width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-actions a {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: width 0.3s ease-in-out;
+}
+
+
+.nav-actions a:first-child {
+    position: relative;
+    color: black;
+    text-decoration: none;
+    padding-bottom: 4px;
+}
+
+.nav-actions a:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-actions a:first-child:hover::after {
+    width: 100%;
+}
+
+
+.nav-actions a:last-child {
+  background-color: black;
+  color: #FAF6F0;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+.nav-actions a:last-child:hover {
+  background-color: #CE1B51;
+}
+
+.secao-inicial{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 5% 80px 5%;
+    min-height: calc(100vh - 70px);
+    gap: 40px;
+}
+
+.conteudo-inicial{
+    flex: 1;
+    max-width: 600px;
+}
+
+.conteudo-inicial .tag{
+    font-size: 12px;
+    font-weight: 500;
+    color: #CE1B51;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.conteudo-inicial h1{
+    font-family: 'Bodoni Moda', serif;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: black;
+    margin-bottom: 24px;
+}
+
+.conteudo-inicial h1 span{
+    display: block;
+    color: #CE1B51;
+    font-weight: 600;
+}
+
+.conteudo-inicial p{
+    font-size: 15px;
+    line-height: 1.6;
+    color:rgb(58, 53, 53);
+    margin-bottom: 32px;
+}
+
+.botoes-iniciais{
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.descobrirEstilo{
+    background-color: black;
+    color: #FFF8EE;
+    border: 1px solid #1A1A1A;
+    padding: 12px 24px;
+    font-size: 0.80rem;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.descobrirEstilo:hover{
+    background-color: #CE1B51;
+    border-color: #CE1B51;
+}
+
+.acessarComunidade{
+    background-color: transparent;
+    color: black;
+    border: 1px solid black;
+    padding: 12px 24px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.80rem;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.acessarComunidade:hover {
+  background-color: #CE1B51;
+  color: #FFF8EE;
+}
+
