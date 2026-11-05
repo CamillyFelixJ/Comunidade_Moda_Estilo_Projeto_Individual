@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FFF8EE;
+    font-family: 'Jost', sans-serif;
+    color: #1A1A1A;
+    padding-top: 70px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(255, 246, 233, 0.85); 
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+    margin-left: 0;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 32px;
+}
+
+.navbar nav a {
+    position: relative;
+    text-decoration: none;
+    color: rgb(58, 53, 53);
+    font-size: 13px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding-bottom: 4px;
+}
+
+.navbar nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar nav a:hover::after, .navbar nav a.active::after {
+    width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-actions a {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.nav-actions a:first-child {
+    position: relative;
+    color: black;
+    padding-bottom: 4px;
+}
+
+.nav-actions a:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-actions a:first-child:hover::after {
+    width: 100%;
+}
+
+.nav-actions a:last-child {
+  background-color: black;
+  color: #FAF6F0;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+.nav-actions a:last-child:hover {
+  background-color: #CE1B51;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    width: 105%;
+}
+
+.cadastro-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 25px 20px;
+}
+
+.cadastro-card{
+    display: flex;
+    max-width: 800px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+}
+
+.cadastro-foto{
+    flex: 1;
+    max-width: 320px;
+}
+
+.cadastro-foto img{
+    width: 400px;
+    height: 465px;
+    object-fit: cover;
+    display: block;
+    margin-left: -80px;
+}
+
+.cadastro-lado-direito {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 70px;
+}
+
+.conteudo-cadastro {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.conteudo-cadastro h1 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 38px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: black;
+}
+
+.conteudo-cadastro .subtitulo {
+    font-size: 14px;
+    font-weight: 300;
+    color: black;
+    white-space: nowrap;
+    margin-bottom: 4px;
+}
+
+#cardErro {
+    display: none;
+}
+
+.alerta_erro{
+    margin-bottom: 16px;
+}
+
+.card_erro{
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: 2px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.campo p {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #333;
+}
+
+.campo input {
+    width: 100%;
+    height: 34px;
+    padding: 0 10px;
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+}
+
+.campo input:focus {
+    border-color: #000000;
+}
+
+.botao-cadastro {
+    width: 100%;
+    height: 36px;
+    background-color: black;
+    color: white;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.3s ease;
+}
+
+
+.botao-cadastro:hover{
+    background-color: #CE1B51;
+}
+
+.loading-div img{
+    width: 32px;
+    animation: rotacionar 1s linear infinite;
+}
+
+@keyframes rotacionar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.subtitulo-conta {
+    font-size: 13px;
+    color: black;
+}
+
+.subtitulo-conta a{
+    color: #CE1B51;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.subtitulo-conta a:hover{
+    text-decoration: underline;
+    outline: none;
+}
+
+.subtitulo-conta a:focus{
+    outline: none;
+}

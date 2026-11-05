@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FFF8EE;
+    font-family: 'Jost', sans-serif;
+    color: #1A1A1A;
+    padding-top: 70px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(255, 246, 233, 0.85); 
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+    margin-left: 0;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 32px;
+}
+
+.navbar nav a {
+    position: relative;
+    text-decoration: none;
+    color: rgb(58, 53, 53);
+    font-size: 13px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding-bottom: 4px;
+}
+
+.navbar nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar nav a:hover::after, .navbar nav a.active::after {
+    width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-actions a {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.nav-actions a:first-child {
+    position: relative;
+    color: black;
+    padding-bottom: 4px;
+}
+
+.nav-actions a:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-actions a:first-child:hover::after {
+    width: 100%;
+}
+
+.nav-actions a:last-child {
+  background-color: black;
+  color: #FAF6F0;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+.nav-actions a:last-child:hover {
+  background-color: #CE1B51;
+}
+
+.login-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 38px 20px;
+}
+
+.login-card {
+    display: flex;
+    max-width: 900px;
+    width: 100%;
+    align-items: center;
+    gap: 60px;
+}
+
+.login-foto {
+    flex: 1;
+    max-width: 380px;
+}
+
+.login-foto img {
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+    display: block;
+}
+
+.login-lado-direito {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudo-login {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.conteudo-login h1 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: black;
+    margin-top: 0px;
+    margin-bottom: 4px;
+}
+
+.conteudo-login .subtitulo {
+    font-size: 15px;
+    font-weight: 300;
+    color: #4A4A4A;
+    margin-top: 5px;
+}
+
+.campo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.campo-input p {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: #333;
+}
+
+.campo-input input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    background-color: white;
+    border: 1px solid #CCCCCC; 
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    color: black;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.campo-input input:focus {
+    border-color: black;
+}
+
+.botao-login {
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    color: white;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.botao-login:hover {
+    background-color: #cb144b;
+}
+
+.subtitulo-conta {
+    font-size: 0.85rem;
+    color: #555555;
+    margin-top: 10px;
+}
+
+.subtitulo-conta a {
+    color: #CE1B51;
+    text-decoration: none;
+}
+
+.subtitulo-conta a:hover {
+    text-decoration: underline;
+}
+
+
+
+/*.campo-input input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: black !important; /* Garante que o texto continue preto 
+    transition: background-color 5000s ease-in-out 0s;
+}/*
