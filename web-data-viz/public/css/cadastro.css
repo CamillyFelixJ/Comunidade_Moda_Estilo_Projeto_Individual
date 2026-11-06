@@ -274,3 +274,67 @@ body {
 .subtitulo-conta a:focus{
     outline: none;
 }
+
+.footer {
+    padding: 40px 3%;
+    background-color: #FFF8EE;
+    border-top: 1px solid rgba(26, 26, 26, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-brand .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+    margin-right: 50px;
+}
+
+.footer-brand p {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    color: #4e4e4e;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* Corrigido o seletor para alinhar com o HTML */
+.footer-nav {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.footer-nav a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: #1A1A1A;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.footer-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px; 
+    background-color: #CE1B51;
+    transition: width 0.3s ease;
+}
+
+.footer-nav a:hover::after {
+    width: 100%;
+}
+
+.footer-nav a:hover {
+    color: #CE1B51;
+}
