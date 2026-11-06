@@ -11,7 +11,6 @@ body {
     padding-top: 70px;
 }
 
-/* NAVBAR */
 .navbar {
     position: fixed;
     top: 0;
@@ -114,7 +113,6 @@ body {
     background-color: #CE1B51;
 }
 
-/* CONTEÚDO PRINCIPAL & SEÇÃO SOBRE MIM */
 .conteudo-principal {
     width: 100%;
 }
@@ -187,7 +185,6 @@ body {
     color: #1A1A1A;
 }
 
-/* LINHA DO TEMPO (BLOCOS 01, 02 E 03) - COM MAIS ESPAÇAMENTO */
 .linha-tempo {
     padding: 60px 8%;
     width: 100%;
@@ -199,7 +196,7 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 160px;
-    padding: 40px 0; /* Aumentei o espaçamento interno do bloco */
+    padding: 40px 0; 
 }
 
 .linha-tempo-bloco.reverse {
