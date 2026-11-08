@@ -4,14 +4,14 @@
     box-sizing: border-box;
 }
 
-body {
+body{
     background-color: #FFF8EE;
     font-family: 'Jost', sans-serif;
     color: #1A1A1A;
-    padding-top: 70px;
+    padding-top: 60px;
 }
 
-.navbar {
+.navbar{
     position: fixed;
     top: 0;
     left: 0;
@@ -27,7 +27,7 @@ body {
     z-index: 1000;
 }
 
-.navbar .logo {
+.navbar .logo{
     font-family: 'Bodoni Moda', serif;
     font-size: 1.5rem;
     font-weight: 500;
@@ -36,23 +36,23 @@ body {
     margin-left: 0;
 }
 
-.navbar nav {
+.navbar nav{
     display: flex;
     gap: 32px;
 }
 
-.navbar nav a {
+.navbar nav a{
     position: relative;
     text-decoration: none;
-    color: rgb(58, 53, 53);
+    color: black;
     font-size: 13px;
     font-weight: 300;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.3 ease;
     padding-bottom: 4px;
 }
 
-.navbar nav a::after {
+.navbar nav a::after{
     content: '';
     position: absolute;
     bottom: 0;
@@ -76,13 +76,15 @@ body {
 .nav-actions a {
   text-decoration: none;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 00;
   cursor: pointer;
+  transition: width 0.3s ease-in-out;
 }
 
 .nav-actions a:first-child {
     position: relative;
     color: black;
+    text-decoration: none;
     padding-bottom: 4px;
 }
 
@@ -236,7 +238,7 @@ body {
 }
 
 .footer {
-    padding: 40px 3%;
+    padding: 30px 2%;
     background-color: #FFF8EE;
     border-top: 1px solid rgba(26, 26, 26, 0.15);
     display: flex;
@@ -299,6 +301,10 @@ body {
     color: #CE1B51;
 }   
 
+.loading{
+justify-content: center;
+align-items: center;
+}
 
 
 /*.campo-input input:-webkit-autofill {

@@ -16,16 +16,14 @@
     rel="stylesheet">
 </head>
 
-
-<body onload="listar()">
+<body>
 
   <header class="navbar">
     <div class="logo"><i>YOUR STYLE</i></div>
     <nav>
-      <a href="paginaHOME.html">Início</a>
+      <a href="index.html">Início</a>
       <a href="sobreMim.html">Sobre mim</a>
-      <a href="#comunidade">Comunidade</a>
-      <a href="#ref">Referências</a>
+      <a href="referencias.html">Referências</a>
     </nav>
 
     <div class="nav-actions">
@@ -58,12 +56,12 @@
                          Assim que inserir vá para o script abaixo.
                      -->
           <div class="campo">
-            <p>CÓDIGO DE ATIVAÇÃO:</p>
-            <input id="codigo_input" type="text"/>
-          </div>
-          <div class="campo">
             <p>NOME</p>
             <input id="nome_input" type="text"/>
+          </div>
+          <div class="campo">
+            <p>CPF</p>
+            <input id="cpf_input" type="text"/>
           </div>
           <div class="campo">
             <p>E-MAIL</p>
@@ -99,11 +97,9 @@
         </div>
 
         <nav class="footer-nav">
-            <a href="#inicio">Ínicio</a>
-            <a href="#sobre">Sobre Mim</a>
-            <a href="#referencias">Referências</a>
-            <a href="#comunidade">Comunidade</a>
-            <a href="#quiz">Quiz de Estilo</a>
+            <a href="index.html">Ínicio</a>
+            <a href="sobreMim.html">Sobre Mim</a>
+            <a href="referencias.html">Referências</a>
         </nav>
     </footer>
 
@@ -114,32 +110,28 @@
 
 <script>
 
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
-
   function cadastrar() {
     // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
+    var cpfVar = cpf_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-    var idEmpresaVincular
 
     // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
+      cpfVar == ""  ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
+      confirmacaoSenhaVar == "" 
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        "(Todos os campos estão em branco!)";
 
       finalizarAguardar();
       return false;
@@ -148,7 +140,7 @@
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+    /*for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
       if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
         idEmpresaVincular = listaEmpresasCadastradas[i].id
         console.log("Código de ativação válido.");
@@ -158,7 +150,7 @@
         mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
         finalizarAguardar();
       }
-    }
+    }*/
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -170,9 +162,9 @@
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
+        cpfServer: cpfVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
@@ -203,7 +195,7 @@
   }
 
   // Listando empresas cadastradas 
-  function listar() {
+  /*function listar() {
     fetch("/empresas/listar", {
       method: "GET",
     })
@@ -220,7 +212,7 @@
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
-  }
+  }*/
 
   function sumirMensagem() {
     cardErro.style.display = "none";

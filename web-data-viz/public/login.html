@@ -18,10 +18,9 @@
     <header class="navbar">
         <div class="logo"><i>YOUR STYLE</i></div>
         <nav>
-            <a href="paginaHOME.html">Início</a>
+            <a href="index.html">Início</a>
             <a href="sobreMim.html">Sobre mim</a>
-            <a href="#comunidade">Comunidade</a>
-            <a href="#ref">Referências</a>
+            <a href="referencias.html">Referências</a>
         </nav>
 
         <div class="nav-actions">
@@ -36,7 +35,6 @@
                 <img src="assets/login.png">
             </div>
 
-            <!-- Lado direito organizado -->
             <div class="login-lado-direito">
                 <div class="conteudo-login">
                     <h1>Bem vinda de volta</h1>
@@ -45,15 +43,26 @@
 
                 <div class="campo-input">
                     <p>E-MAIL</p>
-                    <input type="email" id="ipt_email">
+                    <input type="email" id="ipt_email">                
+                    <div id="div_erroEmail"></div>
                 </div>
 
                 <div class="campo-input">
                     <p>SENHA</p>
-                    <input type="password" id="ipt_senha">
+                    <input type="password" id="ipt_senha" oninput="validarSenha()">
+                    <p id="forca_senha"></p>
+                    <div id="div_erroSenha"></div>
                 </div>
 
-                <button class="botao-login">FAZER LOGIN</button>
+                <button class="botao-login" onclick="entrar()">FAZER LOGIN</button>
+
+                <div id="cardErro" style="display: none;">
+                    <p id="mensagem_erro"></p>
+                </div>
+               
+                <div id="div_aguardar" style="display: none;" class="loading">
+                    <img src="assets/circle-loading.gif" width="50px">
+                </div>
 
                 <p class="subtitulo-conta">Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
             </div>
@@ -67,11 +76,9 @@
         </div>
 
         <nav class="footer-nav">
-            <a href="#inicio">Ínicio</a>
-            <a href="#sobre">Sobre Mim</a>
-            <a href="#referencias">Referências</a>
-            <a href="#comunidade">Comunidade</a>
-            <a href="#quiz">Quiz de Estilo</a>
+            <a href="index.html">Ínicio</a>
+            <a href="sobreMim.html">Sobre Mim</a>
+            <a href="referencias.html">Referências</a>
         </nav>
     </footer>
 
@@ -81,25 +88,30 @@
 
 <script>
 
-
     function entrar() {
+
+
+
         aguardar();
 
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
 
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+        var erroEmail = document.getElementById("div_erroEmail");
+        var erroSenha = document.getElementById("div_erroSenha");
+
+        erroEmail.innerHTML = "";
+        erroSenha.innerHTML = "";
+
+        if (emailVar == "") {
+            erroEmail.innerHTML = "Digite seu e-mail!";
+            finalizarAguardar();
+            return false;
+        } else if (senhaVar == "") {
+            erroSenha.innerHTML = "Digite sua senha!";
             finalizarAguardar();
             return false;
         }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
-
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
 
         fetch("/usuarios/autenticar", {
             method: "POST",
@@ -111,38 +123,37 @@
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
 
             if (resposta.ok) {
-                console.log(resposta);
 
                 resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+                    sessionStorage.ID_USUARIO = json.id_usuario;
 
                     setTimeout(function () {
                         window.location = "./dashboard/cards.html";
-                    }, 1000); // apenas para exibir o loading
-
+                    }, 1000);
                 });
 
             } else {
 
-                console.log("Houve um erro ao tentar realizar o login!");
+                resposta.json().then(json => {
+                    finalizarAguardar();
 
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
+                    //mesmo erro que está no usuarioController
+                    if (json.erro == "EMAIL_NAO_ENCONTRADO") {
+                        erroEmail.innerHTML = "E-mail não encontrado!";
+                    } else if (json.erro == "SENHA_INCORRETA") {
+                        erroSenha.innerHTML = "Senha incorreta!";
+                    }
                 });
             }
 
         }).catch(function (erro) {
             console.log(erro);
-        })
+            finalizarAguardar();
+        });
 
         return false;
     }

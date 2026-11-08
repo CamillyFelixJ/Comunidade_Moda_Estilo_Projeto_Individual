@@ -6,9 +6,17 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+CREATE DATABASE yourStyle;
 
-USE aquatech;
+USE yourStyle;
+
+CREATE TABLE usuario (
+	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(100) NOT NULL,
+	cpf CHAR(11) NOT NULL UNIQUE,
+	email VARCHAR(100) NOT NULL UNIQUE,
+	senha VARCHAR(100) NOT NULL
+);
 
 CREATE TABLE empresa (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -17,21 +25,12 @@ CREATE TABLE empresa (
 	codigo_ativacao VARCHAR(50)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
-
 CREATE TABLE aviso (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	titulo VARCHAR(100),
 	descricao VARCHAR(150),
 	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+	FOREIGN KEY (fk_usuario) REFERENCES usuario(id_usuario)
 );
 
 create table aquario (

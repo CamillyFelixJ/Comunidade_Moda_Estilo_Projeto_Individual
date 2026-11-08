@@ -1,3 +1,5 @@
+// define os caminhos que podem ser acessados pela API
+
 var express = require("express");
 var router = express.Router();
 

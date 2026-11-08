@@ -1,3 +1,5 @@
+//configuração da conexão com o banco de dados
+
 var mysql = require("mysql2");
 
 // CONEXÃO DO BANCO MYSQL SERVER

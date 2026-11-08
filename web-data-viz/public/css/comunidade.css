@@ -1,0 +1,508 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FFF8EE;
+    font-family: 'Jost', sans-serif;
+    color: #1A1A1A;
+    padding-top: 70px;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(255, 246, 233, 0.95);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 32px;
+}
+
+.navbar nav a {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding-bottom: 4px;
+}
+
+.navbar nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar nav a:hover::after, 
+.navbar nav a.active::after {
+    width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-actions a {
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-actions a:first-child {
+    position: relative;
+    color: black;
+    padding-bottom: 4px;
+}
+
+.nav-actions a:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-actions a:first-child:hover::after {
+    width: 100%;
+}
+
+.nav-actions a:last-child {
+    background-color: black;
+    color: #FAF6F0;
+    padding: 10px 22px;
+    border-radius: 2px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.nav-actions a:last-child:hover {
+    background-color: #CE1B51;
+}
+
+/* COMPONENTES COMPARTILHADOS */
+.section-number {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #CE1B51;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+/* HERO SECTION */
+.hero-section {
+    position: relative;
+    width: 100%;
+    padding: 0 40px;
+    margin-top: 20px;
+}
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    max-height: 520px;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-overlay-card {
+    position: absolute;
+    bottom: 30px;
+    left: 40px;
+    background-color: rgba(255, 248, 238, 0.88);
+    backdrop-filter: blur(6px);
+    padding: 24px 36px;
+    max-width: 500px;
+    border-radius: 2px;
+}
+
+.hero-overlay-card .subtitle-tag {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #CE1B51;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.hero-overlay-card h1 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.hero-overlay-card p {
+    font-size: 14px;
+    color: #4A4A4A;
+    font-weight: 300;
+}
+
+/* SEÇÃO INTRODUÇÃO */
+.intro-section {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 80px;
+}
+
+.intro-section .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #CE1B51;
+    min-width: 120px;
+    padding-top: 8px;
+}
+
+.intro-content {
+    max-width: 650px;
+}
+
+.intro-content p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4A4A4A;
+    font-weight: 300;
+    margin-bottom: 16px;
+}
+
+/* SEÇÃO 01 - MODA E IDENTIDADE */
+.identity-section {
+    background-color: #FFF2E2;
+    padding: 90px 40px;
+}
+
+.identity-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.identity-image {
+    flex: 1;
+}
+
+.identity-image img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.identity-content {
+    flex: 1;
+}
+
+.identity-content p {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #4A4A4A;
+    font-weight: 300;
+    margin-bottom: 16px;
+}
+
+.quote-highlight {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #1A1A1A;
+    margin-top: 32px;
+    padding-left: 16px;
+    border-left: 2px solid #CE1B51;
+}
+
+/* SEÇÃO 02 - PASSO A PASSO (GRID) */
+.style-guide-section {
+    max-width: 1100px;
+    margin: 90px auto;
+    padding: 0 40px;
+}
+
+.section-header-block {
+    margin-bottom: 50px;
+}
+
+.section-subtitle {
+    font-size: 14px;
+    color: #555;
+    font-weight: 300;
+    margin-top: -10px;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px 48px;
+}
+
+.step-card {
+    border-top: 1px solid rgba(26, 26, 26, 0.2);
+    padding-top: 16px;
+}
+
+.step-num {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: #CE1B51;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.step-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4A4A4A;
+    font-weight: 300;
+}
+
+/* SEÇÃO 03 - AUTOESTIMA */
+.self-esteem-section {
+    background-color: #FDE8ED;
+    padding: 90px 40px;
+    text-align: left;
+}
+
+.self-esteem-content {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.self-esteem-content p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4A4A4A;
+    font-weight: 300;
+    margin-bottom: 16px;
+}
+
+/* SEÇÃO 04 - GALERIA DE INSPIRAÇÕES */
+.gallery-section {
+    max-width: 1100px;
+    margin: 90px auto;
+    padding: 0 40px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.img-wrapper {
+    width: 100%;
+    height: 340px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.03);
+}
+
+.gallery-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    color: #CE1B51;
+    text-transform: uppercase;
+}
+
+/* ENCERRAMENTO E CTA */
+.closing-section {
+    background-color: #FFF2E2;
+    padding: 90px 40px;
+    text-align: center;
+}
+
+.closing-section h2 {
+    max-width: 600px;
+    margin: 0 auto 16px auto;
+}
+
+.closing-section p {
+    max-width: 500px;
+    margin: 0 auto 32px auto;
+    font-size: 14px;
+    color: #555;
+    font-weight: 300;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: black;
+    color: #FFF;
+    padding: 14px 32px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #CE1B51;
+}
+
+/* FOOTER */
+.footer {
+    padding: 40px 40px;
+    background-color: #FFF8EE;
+    border-top: 1px solid rgba(26, 26, 26, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-brand .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+    margin-bottom: 4px;
+}
+
+.footer-brand p {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    color: #666;
+    font-weight: 300;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.footer-nav a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: #1A1A1A;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.footer-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease;
+}
+
+.footer-nav a:hover::after {
+    width: 100%;
+}
+
+.footer-nav a:hover {
+    color: #CE1B51;
+}
+
+/* RESPONSIVIDADE (Telas menores) */
+@media (max-width: 900px) {
+    .identity-container {
+        flex-direction: column;
+    }
+    
+    .steps-grid, .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .intro-section {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .steps-grid, .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .navbar {
+        padding: 0 16px;
+    }
+    
+    .hero-section, .gallery-section, .style-guide-section, .intro-section {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
