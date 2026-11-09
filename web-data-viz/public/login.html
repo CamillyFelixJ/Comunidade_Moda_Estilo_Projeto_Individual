@@ -90,8 +90,6 @@
 
     function entrar() {
 
-
-
         aguardar();
 
         var emailVar = ipt_email.value;
@@ -148,6 +146,7 @@
                         erroSenha.innerHTML = "Senha incorreta!";
                     }
                 });
+
             }
 
         }).catch(function (erro) {
@@ -157,6 +156,7 @@
 
         return false;
     }
+
 
     function sumirMensagem() {
         cardErro.style.display = "none"
