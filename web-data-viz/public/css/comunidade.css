@@ -169,7 +169,7 @@ h2 {
 }
 
 .camada-capa .subtitulo-tag {
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 1.5px;
     color: #CE1B51;
     font-weight: 600;
@@ -179,15 +179,15 @@ h2 {
 
 .camada-capa h1 {
     font-family: 'Bodoni Moda', serif;
-    font-size: 2.5rem;
+    font-size: 36px;
     font-weight: 500;
     margin-bottom: 6px;
 }
 
 .camada-capa p {
     font-size: 14px;
-    color: #4A4A4A;
-    font-weight: 300;
+    color: black;
+    font-weight: 400;
 }
 
 .introducao {
@@ -199,24 +199,34 @@ h2 {
 }
 
 .introducao .titulo-introducao {
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 1.5px;
     color: #CE1B51;
     min-width: 120px;
-    padding-top: 8px;
+    padding-top: 90px;
 }
 
 .conteudo-introducao {
-    max-width: 650px;
+    max-width: 750px;
+}
+
+.conteudo-introducao h2{
+    font-size: 35px;
+    color: black;
+    font-family: 'Bodoni Moda', sans-serif;
+    margin-left: 200px;
+    font-weight: 600;
 }
 
 .conteudo-introducao p {
     font-size: 15px;
     line-height: 1.7;
-    color: #4A4A4A;
-    font-weight: 300;
+    color: black;
+    font-weight: 400;
     margin-bottom: 16px;
+    margin-left: 200px;
+    font-family: 'Jost', serif;
 }
 
 .secao-identidade {
@@ -233,12 +243,12 @@ h2 {
 }
 
 .imagem-identidade {
-    flex: 1;
+    flex: 0 0 40%;
 }
 
 .imagem-identidade img {
-    width: 100%;
-    max-height: 480px;
+    width: 90%;
+    height: 450px;
     object-fit: cover;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
@@ -248,18 +258,19 @@ h2 {
 }
 
 .conteudo-identidade p {
-    font-size: 14.5px;
+    font-size: 16px;
     line-height: 1.7;
-    color: #4A4A4A;
+    color: black;
     font-weight: 300;
     margin-bottom: 16px;
+    max-width: 520px;
 }
 
-.subtitulo2 {
+.conteudo-identidade .subtitulo2 {
     font-family: 'Bodoni Moda', serif;
     font-style: italic;
-    font-size: 1.25rem;
-    color: #1A1A1A;
+    font-size: 17px;
+    color: black;
     margin-top: 32px;
     padding-left: 16px;
     border-left: 2px solid #CE1B51;
@@ -356,11 +367,6 @@ h2 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.galeria-item:hover img {
-    transform: scale(1.03);
 }
 
 .galeria-subtitulo {
