@@ -1,0 +1,479 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FFE4EC;
+    font-family: 'Jost', sans-serif;
+    color: #1A1A1A;
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(255, 228, 236, 0.9);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.25);
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #1A1A1A;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 32px;
+}
+
+.navbar nav a {
+    position: relative;
+    text-decoration: none;
+    color: #1A1A1A;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
+
+.navbar nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+    width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-actions a:first-child {
+    position: relative;
+    color: #1A1A1A;
+    text-decoration: none;
+    font-size: 14px;
+    padding-bottom: 4px;
+}
+
+.nav-actions a:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-actions a:first-child:hover::after {
+    width: 100%;
+}
+
+.nav-actions a:last-child {
+    background-color: #1A1A1A;
+    color: #FAF6F0;
+    padding: 8px 24px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-actions a:last-child:hover {
+    background-color: #CE1B51;
+}
+
+.container-principal {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.card-principal {
+    max-width: 820px;
+    width: 100%;
+    background-color: #FFF8EE;
+    padding: 50px 60px;
+    border-radius: 2px;
+    border: 1px solid #8C827A;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.coluna-flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.tela-inicial {
+    text-align: left;
+}
+
+.subtitulo-topo {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #CE1B51;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.titulo-principal {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin-bottom: 22px;
+    line-height: 1.2;
+}
+
+.texto-descricao {
+    font-size: 1rem;
+    color: #2B2B2B;
+    font-weight: 400;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 620px;
+}
+
+.btn-iniciar-quiz {
+    align-self: center;
+    background-color: #140808;
+    color: #FFF8EE;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 14px 56px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-iniciar-quiz:hover {
+    background-color: #CE1B51;
+    transform: translateY(-2px);
+}
+
+#jogo {
+    display: none;
+    min-height: 460px;
+}
+
+.info-questao {
+    margin-bottom: 28px;
+}
+
+.info-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #CE1B51;
+    font-weight: 500;
+    padding-bottom: 12px;
+}
+
+.barra-progresso {
+    width: 100%;
+    height: 2px;
+    background-color: #E5DCD0;
+}
+
+.barra-progresso-preenchimento {
+    height: 100%;
+    width: 0%;
+    background-color: #CE1B51;
+    transition: width 0.4s ease;
+}
+
+.area-botoes {
+    margin-top: auto;
+    justify-content: flex-start;
+}
+
+.pergunta-atual {
+    margin-bottom: 12px;
+}
+
+.span-questao-exibida {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    line-height: 1.3;
+}
+
+.info-alternativas {
+    margin-bottom: 24px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.opcoes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.opcoes div {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid #E5DCD0;
+    padding: 14px 18px;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.opcoes div:hover {
+    border-color: #CE1B51;
+    background-color: #FFF2F5;
+}
+
+.opcoes input[type="radio"],
+.opcoes input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #999;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    margin-right: 12px;
+    transition: all 0.2s ease;
+    background-color: #FFF;
+    flex-shrink: 0;
+}
+
+.opcoes input[type="radio"] {
+    border-radius: 50%;
+}
+
+.opcoes input[type="checkbox"]:checked,
+.opcoes input[type="radio"]:checked {
+    background-color: #CE1B51;
+    border-color: #CE1B51;
+}
+
+.opcoes input[type="checkbox"]:checked::before {
+    content: "✓";
+    color: #FFF;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.opcoes input[type="radio"]:checked::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: #FFF;
+    border-radius: 50%;
+}
+
+.opcoes label {
+    font-size: 1rem;
+    color: #1A1A1A;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 400;
+}
+
+.opcoes input:disabled + label {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.opcoes div:has(input:disabled) {
+    background-color: #F5F2EC;
+    border-color: #EAE3D9;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.area-botoes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.area-botoes button {
+    font-family: 'Jost', sans-serif;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-submeter {
+    background-color: #140808;
+    color: #FAF6F0;
+}
+
+.btn-submeter:hover:not(:disabled) {
+    background-color: #CE1B51;
+}
+
+.btn-prox {
+    background-color: #CE1B51;
+    color: #FAF6F0;
+}
+
+.btn-prox:hover:not(:disabled) {
+    background-color: #A81240;
+}
+
+.btn-tentar-novamente {
+    background-color: transparent;
+    border: 1px solid #8C827A !important;
+    color: #1A1A1A;
+}
+
+.btn-tentar-novamente:hover:not(:disabled) {
+    background-color: #E5DCD0;
+}
+
+.area-botoes button:disabled {
+    background-color: #EFECE6;
+    border-color: transparent !important;
+    color: #B5AFA8;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.footer {
+    margin-top: auto;
+    padding: 32px 40px;
+    background-color: #FFE4EC;
+    border-top: 1px solid rgba(26, 26, 26, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-brand .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+    margin-bottom: 4px;
+}
+
+.footer-brand p {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    color: #666;
+    font-weight: 300;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.footer-nav a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: #1A1A1A;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.footer-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease;
+}
+
+.footer-nav a:hover::after {
+    width: 100%;
+}
+
+.footer-nav a:hover {
+    color: #CE1B51;
+}
+
+/* questão 9 */
+.grupo-afirmacao {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.grupo-afirmacao p {
+    margin-bottom: 12px;
+}
+
+.opcoes-escala {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.opcoes-escala label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.descricao-escala {
+    margin-top: 10px;
+    line-height: 1.8;
+    font-size: 14px;
+}
