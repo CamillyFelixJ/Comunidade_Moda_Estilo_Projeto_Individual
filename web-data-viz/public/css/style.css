@@ -350,12 +350,18 @@ body{
   margin-bottom: 4px;
 }
 
-.explorar-section .card h3{
+.explorar-section .card a{
     font-family: 'Bodoni Moda', serif;
     font-size: 20px;
     font-weight: lighter;
     color: black;
     margin-bottom: 8px;
+    text-decoration: none;
+}
+
+
+.explorar-section .card a:hover {
+    color: #CE1B51;
 }
 
 .explorar-section .card p {

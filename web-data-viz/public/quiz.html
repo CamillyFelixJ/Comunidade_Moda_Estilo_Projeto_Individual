@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -8,18 +9,17 @@
 
     <link rel="icon" href="assets/logo5.png">
     <link rel="stylesheet" href="./css/quiz.css">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
 </head>
-
-<!-- onload: assim que a página for carregada, a função será executada -->
 
 <body onload="onloadEsconder()">
 
     <header class="navbar">
         <div class="logo"><i>YOUR STYLE</i></div>
+
         <nav>
             <a href="comunidade.html">Comunidade</a>
             <a href="quiz.html">Quiz de Estilo</a>
@@ -36,47 +36,96 @@
 
         <div class="card-principal coluna-flex borda" id="telaInicial">
             <span class="subtitulo-topo">SEU ESTILO, SUA IDENTIDADE</span>
-            <h1 class="titulo-principal">Descubra mais sobre o seu estilo!</h1>
-            <p class="texto-descricao">Responda algumas perguntas sobre suas preferências, suas inspirações e sua
-                relação com a moda. Vamos descobrir juntas o que faz parte da sua identidade?</p>
-            <button id="btnIniciarQuiz" class="btn-iniciar-quiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+            <h1 class="titulo-principal">
+                Descubra mais sobre o seu estilo!
+            </h1>
+
+            <p class="texto-descricao">
+                Responda algumas perguntas sobre suas preferências, suas inspirações e sua
+                relação com a moda. Vamos descobrir juntas o que faz parte da sua identidade?
+            </p>
+
+            <button
+                id="btnIniciarQuiz"
+                class="btn-iniciar-quiz"
+                onclick="iniciarQuiz()">
+                INICIAR QUIZ
+            </button>
         </div>
 
         <div id="jogo" class="card-principal coluna-flex">
 
             <div id="infoQuestao" class="info-questao">
+
                 <div class="info-topo">
                     <span>QUIZ DE ESTILO</span>
-                    <span><span id="spanNumeroDaQuestaoAtual">01</span>/<span id="qtdQuestoes">10</span></span>
+
+                    <span>
+                        <span id="spanNumeroDaQuestaoAtual">01</span>/
+                        <span id="qtdQuestoes">10</span>
+                    </span>
                 </div>
+
                 <div class="barra-progresso">
-                    <div class="barra-progresso-preenchimento" id="barraProgresso"></div>
+                    <div
+                        class="barra-progresso-preenchimento"
+                        id="barraProgresso">
+                    </div>
                 </div>
+
             </div>
 
             <div class="pergunta-atual">
-                <span id="spanQuestaoExibida" class="span-questao-exibida"></span>
+                <span
+                    id="spanQuestaoExibida"
+                    class="span-questao-exibida">
+                </span>
             </div>
 
             <div id="infoAlternativas" class="info-alternativas">
-                <!-- mudar o subtitulo quando a pessoa precisar escolher as alternativas por ordem de importância -->
+
                 <span id="subtituloAlternativas">
                     <em>Escolha uma opção dentre as abaixo:</em>
                 </span>
+
             </div>
 
             <div id="opcoes" class="opcoes coluna-flex"></div>
 
             <div class="area-botoes">
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" class="btn-tentar-novamente" disabled>Tentar
-                    novamente</button>
-                <button onclick="submeter()" id="btnSubmeter" class="btn-submeter">Enviar</button>
-                <button onclick="avancar()" id="btnProx" class="btn-prox" disabled>Avançar para próxima questão</button>
+
+                <button
+                    onclick="tentarNovamente()"
+                    id="btnTentarNovamente"
+                    class="btn-tentar-novamente"
+                    disabled>
+                    Tentar novamente
+                </button>
+
+                <button
+                    onclick="submeter()"
+                    id="btnSubmeter"
+                    class="btn-submeter">
+                    Enviar
+                </button>
+
+                <button
+                    onclick="avancar()"
+                    id="btnProx"
+                    class="btn-prox"
+                    disabled>
+                    Avançar para próxima questão
+                </button>
+
             </div>
+
         </div>
+
     </main>
 
     <footer class="footer">
+
         <div class="footer-brand">
             <div class="logo"><i>YOUR STYLE</i></div>
             <p>Descubra sua essência, estilo e autoconfiança</p>
@@ -87,104 +136,163 @@
             <a href="quiz.html">Quiz de Estilo</a>
             <a href="referencias.html">Dashboard</a>
         </nav>
+
     </footer>
-</body>
+
 <script>
 
     let respostasUsuario = [];
 
-    //guarda as alternativas selecionadas na sequência dos cliques
+    // Guarda as alternativas selecionadas na sequência dos cliques
     let ordemSelecionada = [];
 
-    //JSON
+    // JSON
     const listaDeQuestoes = [
 
         {
-            //estilo predominante
+            // Estilo predominante
             id: 1,
             pergunta: `Quais estilos mais te representam?`,
             tipo: `multipla`,
             limiteSelecao: 3,
-            //identificar as laternativas que terão ordem de importância (true ou false)
             ordenarImportancia: true,
-            opcoes: [`Casual`, `Romântico`, `Minimalista`, `Elegante`, `Moderno`, `Esportivo`, `StreetWear`, `Boho`, `Ainda estou descobrindo meu estilo`],
-            opcoesExclusivas: [`Ainda estou descobrindo meu estilo`],
+            opcoes: [
+                `Casual`,
+                `Romântico`,
+                `Minimalista`,
+                `Elegante`,
+                `Moderno`,
+                `Esportivo`,
+                `StreetWear`,
+                `Boho`,
+                `Ainda estou descobrindo meu estilo`
+            ],
+            opcoesExclusivas: [`Ainda estou descobrindo meu estilo`]
         },
 
         {
-            //cores predominantes nas roupas do usuário
+            // Cores predominantes nas roupas
             id: 2,
             pergunta: `Quais cores predominam nas suas roupas?`,
             tipo: `multipla`,
             limiteSelecao: 3,
             ordenarImportancia: false,
-            opcoes: [`Preto e branco`, `Tons neutros(bege, marrom, cinza)`, `Tons pastéis`, `Cores vibrantes`, `Tons terrosos`, `Estampas e combinações`]
+            opcoes: [
+                `Preto e branco`,
+                `Tons neutros(bege, marrom, cinza)`,
+                `Tons pastéis`,
+                `Cores vibrantes`,
+                `Tons terrosos`,
+                `Estampas e combinações`
+            ]
         },
 
         {
-            //situações em que o usuário tem dificuldades
+            // Situações em que o usuário tem dificuldades
             id: 3,
             pergunta: `Em quais situações você sente mais dificuldade para escolher o que vestir?`,
             tipo: `multipla`,
             limiteSelecao: 3,
             ordenarImportancia: false,
-            opcoes: [`Trabalho ou faculdade`, `Festas e eventos`, `Passeios e encontros`, `Ocasiões formais`, `Dia a dia`, `Não tenho dificuldades`],
-            opcoesExclusivas: [`Não tenho dificuldades`],
+            opcoes: [
+                `Trabalho ou faculdade`,
+                `Festas e eventos`,
+                `Passeios e encontros`,
+                `Ocasiões formais`,
+                `Dia a dia`,
+                `Não tenho dificuldades`
+            ],
+            opcoesExclusivas: [`Não tenho dificuldades`]
         },
 
         {
-            //motivos pelo qual o usuário tem dificuldades
+            // Motivos pelos quais o usuário tem dificuldades
             id: 4,
             pergunta: `Quando você não sabe o que vestir, qual costuma ser o motivo?`,
             tipo: `multipla`,
             limiteSelecao: 3,
             ordenarImportancia: false,
-            opcoes: [`Tenho muita roupa, mas nada parece combinar com o que quero`, `Não tenho peças suficientes ou adequadas`, `Não sei qual estilo combina comigo`, `Tenho dificuldade para montar combinações diferentes`, `Me preocupo com o que os outros vão pensar`, `Minhas roupas não servem ou não me deixam confortável`, `Raramente tenho dificuldade para escolher o que vestir`]
-
+            opcoes: [
+                `Tenho muita roupa, mas nada parece combinar com o que quero`,
+                `Não tenho peças suficientes ou adequadas`,
+                `Não sei qual estilo combina comigo`,
+                `Tenho dificuldade para montar combinações diferentes`,
+                `Me preocupo com o que os outros vão pensar`,
+                `Minhas roupas não servem ou não me deixam confortável`,
+                `Raramente tenho dificuldade para escolher o que vestir`
+            ]
         },
 
         {
-            //o que mais chama a atenção do usuário em uma peça de roupa
+            // O que mais chama a atenção em uma peça
             id: 5,
             pergunta: `O que mais chama sua atenção em uma peça de roupa?`,
             tipo: `multipla`,
             limiteSelecao: 3,
             ordenarImportancia: true,
-            opcoes: [`Preço e custo-benefício`, `Conforto`, `Beleza e aparência`, `Tendências da moda`, `Versatilidade (combina com várias peças)`, `Qualidade e durabilidade`]
+            opcoes: [
+                `Preço e custo-benefício`,
+                `Conforto`,
+                `Beleza e aparência`,
+                `Tendências da moda`,
+                `Versatilidade (combina com várias peças)`,
+                `Qualidade e durabilidade`
+            ]
         },
 
         {
-            //frequência de compras
+            // Frequência de compras
             id: 6,
             pergunta: `Com que frequência você costuma comprar roupas?`,
             tipo: `unica`,
             limiteSelecao: 1,
             ordenarImportancia: false,
-            opcoes: [`Toda semana`, `A cada 15 dias`, `Uma vez por mês`, `A cada 2 ou 3 meses`, `Algumas vezes ao ano`, `Somente quando necessário`]
+            opcoes: [
+                `Toda semana`,
+                `A cada 15 dias`,
+                `Uma vez por mês`,
+                `A cada 2 ou 3 meses`,
+                `Algumas vezes ao ano`,
+                `Somente quando necessário`
+            ]
         },
 
         {
-            //gasto mensal - última KPI
+            // Gasto mensal
             id: 7,
             pergunta: `Quanto você costuma gastar mensalmente com roupas?`,
             tipo: `unica`,
             limiteSelecao: 1,
             ordenarImportancia: false,
-            opcoes: [`Até R$ 100`, `De R$ 100 a R$ 200`, `De R$ 200 a R$ 400`, `De R$ 400 a R$ 800`, `Acima de R$ 800`, `Não tenho um valor definido`]
+            opcoes: [
+                `Até R$ 100`,
+                `De R$ 100 a R$ 200`,
+                `De R$ 200 a R$ 400`,
+                `De R$ 400 a R$ 800`,
+                `Acima de R$ 800`,
+                `Não tenho um valor definido`
+            ]
         },
 
         {
-            //categorias mais compradas
+            // Categorias mais compradas
             id: 8,
             pergunta: `Quais categorias você mais compra?`,
             tipo: `multipla`,
             limiteSelecao: 3,
             ordenarImportancia: true,
-            opcoes: [`Blusas e camisetas`, `Calças e shorts`, `Vestidos e saias`, `Calçados`, `Bolsas e acessórios`, `Casacos e jaquetas`]
+            opcoes: [
+                `Blusas e camisetas`,
+                `Calças e shorts`,
+                `Vestidos e saias`,
+                `Calçados`,
+                `Bolsas e acessórios`,
+                `Casacos e jaquetas`
+            ]
         },
 
         {
-            //perfil de consumo do usuário
+            // Perfil de consumo
             id: 9,
             pergunta: `Em que medida cada afirmação descreve você na hora de comprar roupas?`,
             tipo: `escala`,
@@ -224,27 +332,32 @@
         },
 
         {
-            //motivação do usuário ao comprar roupas
+            // Motivação ao comprar roupas
             id: 10,
             pergunta: `Quando você monta um look, o que mais importa para você?`,
             tipo: `unica`,
             limiteSelecao: 1,
             ordenarImportancia: false,
-            opcoes: [`Expressar minha personalidade e identidade`,
+            opcoes: [
+                `Expressar minha personalidade e identidade`,
                 `Sentir-me confortável e confiante`,
                 `Transmitir elegância e sofisticação`,
                 `Experimentar tendências e novas combinações`,
-                `Ter praticidade e versatilidade no dia a dia`]
-        },
-    ]
+                `Ter praticidade e versatilidade no dia a dia`
+            ]
+        }
 
-    // variáveis globais    
-    let numeroDaQuestaoAtual = 0
-    let quantidadeDeQuestoes = listaDeQuestoes.length
-    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+    ];
+
+    // Variáveis globais
+
+    let numeroDaQuestaoAtual = 0;
+    let quantidadeDeQuestoes = listaDeQuestoes.length;
 
     function onloadEsconder() {
-        document.getElementById('jogo').style.display = "none"
+
+        document.getElementById('jogo').style.display = "none";
+
     }
 
     function iniciarQuiz() {
@@ -253,138 +366,201 @@
         respostasUsuario = [];
 
         document.getElementById('telaInicial').style.display = "none";
-        document.getElementById('jogo').style.display = "flex"
-        document.getElementById('btnIniciarQuiz').style.display = "none"
+        document.getElementById('jogo').style.display = "flex";
+        document.getElementById('btnIniciarQuiz').style.display = "none";
 
-        document.getElementById('qtdQuestoes').innerHTML = String(quantidadeDeQuestoes).padStart(2, '0');
+        document.getElementById('qtdQuestoes').innerHTML =
+            String(quantidadeDeQuestoes).padStart(2, '0');
 
-        preencherHTMLcomQuestaoAtual(0)
+        preencherHTMLcomQuestaoAtual(0);
 
-        btnSubmeter.disabled = false
-        btnProx.disabled = true
-        // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = true
+        document.getElementById('btnSubmeter').disabled = false;
+        document.getElementById('btnProx').disabled = true;
+        document.getElementById('btnTentarNovamente').disabled = true;
+
     }
 
     function preencherHTMLcomQuestaoAtual(index) {
 
+        // Limpa a ordem das alternativas da questão anterior
         ordemSelecionada = [];
 
-        const questaoAtual = listaDeQuestoes[index]
-        numeroDaQuestaoAtual = index
+        const questaoAtual = listaDeQuestoes[index];
 
-        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = String(index + 1).padStart(2, '0');
-        document.getElementById("barraProgresso").style.width = ((index + 1) / quantidadeDeQuestoes * 100) + "%";
-        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        numeroDaQuestaoAtual = index;
+
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML =
+            String(index + 1).padStart(2, '0');
+
+        document.getElementById("barraProgresso").style.width =
+            ((index + 1) / quantidadeDeQuestoes * 100) + "%";
+
+        document.getElementById("spanQuestaoExibida").innerHTML =
+            questaoAtual.pergunta;
+
+        // Atualiza o subtítulo de acordo com o tipo de questão
 
         if (questaoAtual.tipo == "escala") {
 
-            document.getElementById("subtituloAlternativas").innerHTML = `<em>Dê uma nota de 1 a 5 para cada afirmação:</em>
+            document.getElementById("subtituloAlternativas").innerHTML = `
+                <em>Dê uma nota de 1 a 5 para cada afirmação:</em>
+
                 <div class="descricao-escala">
                     1 - Não me representa |
                     2 - Representa pouco |
                     3 - Representa parcialmente |
                     4 - Representa bastante |
                     5 - Me representa totalmente
-                </div>`;
+                </div>
+            `;
 
         } else if (questaoAtual.ordenarImportancia == true) {
-            document.getElementById("subtituloAlternativas").innerHTML = "<em>Escolha até 3 opções por ordem de importância</em>";
+
+            document.getElementById("subtituloAlternativas").innerHTML =
+                "<em>Escolha até 3 opções por ordem de importância</em>";
 
         } else if (questaoAtual.tipo == "multipla") {
-            document.getElementById("subtituloAlternativas").innerHTML = "<em>Escolha até 3 opções.</em>";
+
+            document.getElementById("subtituloAlternativas").innerHTML =
+                "<em>Escolha até 3 opções.</em>";
 
         } else {
-            document.getElementById("subtituloAlternativas").innerHTML = "<em>Escolha uma opção dentre as abaixo.</em>";
+
+            document.getElementById("subtituloAlternativas").innerHTML =
+                "<em>Escolha uma opção dentre as abaixo.</em>";
+
         }
 
+        // Limpa as alternativas anteriores
 
         document.getElementById("opcoes").innerHTML = "";
 
-        //qtd de alternativas
-        //checkbox: seleciona varias
-        //radio: seleciona apenas uma
-        // Verifica se a questão é uma escala
+        // Ativa a classe de ordenação somente nas questões necessárias
+
+        document.getElementById("opcoes").classList.toggle(
+            "ordenar-importancia",
+            questaoAtual.ordenarImportancia == true
+        );
+
+        // Verifica se a questão é do tipo escala
+
         if (questaoAtual.tipo == "escala") {
 
             for (let i = 0; i < questaoAtual.afirmacoes.length; i++) {
 
-                document.getElementById("opcoes").innerHTML += `<div class="grupo-afirmacao"><p>${questaoAtual.afirmacoes[i].texto}</p><div class="opcoes-escala">`;
+                document.getElementById("opcoes").innerHTML += `
+                    <div class="grupo-afirmacao">
+                        <p>${questaoAtual.afirmacoes[i].texto}</p>
+
+                        <div class="opcoes-escala">
+                `;
 
                 for (let cont = 1; cont <= 5; cont++) {
+
                     document.getElementById("opcoes").innerHTML += `
-                <label>
-                    <input
-                        type="radio"
-                        name="escala_${i}"
-                        value="${cont}">
-                    ${cont}
-                </labe>`;
+                        <label>
+                            <input
+                                type="radio"
+                                name="escala_${i}"
+                                value="${cont}">
+                            ${cont}
+                        </label>
+                    `;
+
                 }
 
-                document.getElementById("opcoes").innerHTML += `</div></div>`;
+                document.getElementById("opcoes").innerHTML += `
+                        </div>
+                    </div>
+                `;
+
             }
 
         } else {
 
             // Cria as alternativas das outras perguntas
+
             for (let i = 0; i < questaoAtual.opcoes.length; i++) {
 
                 let tipoInput;
+
                 if (questaoAtual.tipo == "multipla") {
                     tipoInput = "checkbox";
                 } else {
                     tipoInput = "radio";
                 }
-                document.getElementById("opcoes").innerHTML += `
-            <div>
-                <input
-                    type="${tipoInput}"
-                    name="option"
-                    id="opcao${i}"
-                    value="${questaoAtual.opcoes[i]}"
-                    onchange="limitarSelecao(this)">
 
-                <label for="opcao${i}">
-                    ${questaoAtual.opcoes[i]}
-                </label>
-            </div>`;
+                document.getElementById("opcoes").innerHTML += `
+                    <div>
+                        <input
+                            type="${tipoInput}"
+                            name="option"
+                            id="opcao${i}"
+                            value="${questaoAtual.opcoes[i]}"
+                            onchange="limitarSelecao(this)">
+
+                        <label for="opcao${i}">
+                            ${questaoAtual.opcoes[i]}
+                        </label>
+                    </div>
+                `;
+
             }
+
         }
+
     }
+
     function limitarSelecao(opcaoClicada) {
+
         const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual];
+
         const options = document.getElementsByName("option");
 
         let quantidadeSelecionada = 0;
         let exclusivaSelecionada = false;
 
-        //verifica se alguma opção exclusiva foi selecionada
+        // Verifica se alguma opção exclusiva foi selecionada
+
         if (questaoAtual.opcoesExclusivas) {
 
             for (let i = 0; i < options.length; i++) {
-                if (options[i].checked == true && questaoAtual.opcoesExclusivas.indexOf(options[i].value) != -1) {
+
+                if (
+                    options[i].checked == true &&
+                    questaoAtual.opcoesExclusivas.indexOf(options[i].value) != -1
+                ) {
+
                     exclusivaSelecionada = true;
 
-                    //desmarca todas as outras
+                    // Desmarca todas as outras opções
+
                     for (let cont = 0; cont < options.length; cont++) {
 
                         if (options[cont] != options[i]) {
                             options[cont].checked = false;
                         }
+
                     }
+
                 }
+
             }
+
         }
 
         // Conta quantas alternativas foram selecionadas
+
         for (let i = 0; i < options.length; i++) {
+
             if (options[i].checked == true) {
                 quantidadeSelecionada++;
             }
+
         }
 
-        //atualiza a ordem das alternativa selecionadas
+        // Atualiza a ordem das alternativas selecionadas
+
         if (questaoAtual.ordenarImportancia == true) {
 
             if (opcaoClicada.checked == true) {
@@ -394,138 +570,242 @@
                 }
 
             } else {
+
                 let indice = ordemSelecionada.indexOf(opcaoClicada.value);
 
                 if (indice != -1) {
                     ordemSelecionada.splice(indice, 1);
                 }
+
             }
+
+            // Se a opção exclusiva foi selecionada, ela fica sozinha na ordem
 
             if (exclusivaSelecionada == true) {
                 ordemSelecionada = [opcaoClicada.value];
             }
+
+            // Atualiza a numeração de cada label
+
+            for (let i = 0; i < options.length; i++) {
+
+                let label = options[i].nextElementSibling;
+
+                if (options[i].checked == true) {
+
+                    let posicao = ordemSelecionada.indexOf(options[i].value);
+
+                    label.setAttribute("data-ordem", posicao + 1);
+
+                } else {
+
+                    label.removeAttribute("data-ordem");
+
+                }
+
+            }
+
         }
 
-        //bloqueia as alternativas
+        // Bloqueia as alternativas quando o limite é atingido
+
         for (let i = 0; i < options.length; i++) {
 
             options[i].disabled = false;
 
-            if (exclusivaSelecionada == true && options[i].checked == false) {
+            if (
+                exclusivaSelecionada == true &&
+                options[i].checked == false
+            ) {
+
                 options[i].disabled = true;
 
-            } else if (quantidadeSelecionada >= questaoAtual.limiteSelecao && options[i].checked == false) {
+            } else if (
+                quantidadeSelecionada >= questaoAtual.limiteSelecao &&
+                options[i].checked == false
+            ) {
+
                 options[i].disabled = true;
+
             }
+
         }
 
-        //caso a pessoa escolha "ainda etsou descobrindo meu estilo" as outras opções ficarão bloqueadas
     }
 
-
     function submeter() {
+
         const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual];
+
         const options = document.getElementsByName("option");
+
         let selecionadas = [];
+
+        // Questão do tipo escala
 
         if (questaoAtual.tipo == "escala") {
 
             for (let i = 0; i < questaoAtual.afirmacoes.length; i++) {
+
                 let notas = document.getElementsByName(`escala_${i}`);
+
                 let notaSelecionada = "";
 
                 for (let cont = 0; cont < notas.length; cont++) {
+
                     if (notas[cont].checked == true) {
                         notaSelecionada = notas[cont].value;
                     }
+
                 }
 
                 // Verifica se a afirmação recebeu uma nota
+
                 if (notaSelecionada == "") {
+
                     alert("Avalie todas as afirmações antes de continuar.");
+
                     return;
+
                 }
 
                 selecionadas.push({
+
                     id: questaoAtual.afirmacoes[i].id,
+
                     afirmacao: questaoAtual.afirmacoes[i].texto,
+
                     nota: Number(notaSelecionada)
+
                 });
+
             }
 
         } else if (questaoAtual.ordenarImportancia == true) {
 
+            // Mantém a ordem em que as opções foram selecionadas
+
             for (let i = 0; i < ordemSelecionada.length; i++) {
+
                 selecionadas.push(ordemSelecionada[i]);
+
             }
 
         } else {
 
+            // Questões comuns
+
             for (let i = 0; i < options.length; i++) {
+
                 if (options[i].checked == true) {
                     selecionadas.push(options[i].value);
                 }
+
             }
+
         }
 
-        // Verificação se alguma alternativa foi selecionada
+        // Verifica se alguma alternativa foi selecionada
+
         if (selecionadas.length == 0) {
+
             alert("Escolha pelo menos uma opção.");
+
         } else {
-            // Guardar a resposta do usuário
+
+            // Guarda a resposta do usuário
+
             respostasUsuario.push({
+
                 id: questaoAtual.id,
+
                 pergunta: questaoAtual.pergunta,
+
                 respostas: selecionadas
+
             });
 
-            btnSubmeter.disabled = true;
-            btnProx.disabled = false;
+            document.getElementById('btnSubmeter').disabled = true;
+
+            document.getElementById('btnProx').disabled = false;
+
             habilitarAlternativas(false);
+
             console.log(respostasUsuario);
+
         }
+
     }
 
     function habilitarAlternativas(trueOrFalse) {
+
         const options = document.getElementsByName("option");
 
         for (let i = 0; i < options.length; i++) {
+
             options[i].disabled = !trueOrFalse;
+
         }
+
+        // Também bloqueia os radios da questão de escala
+
+        if (listaDeQuestoes[numeroDaQuestaoAtual].tipo == "escala") {
+
+            const radios = document.querySelectorAll("#opcoes-escala input");
+
+            for (let i = 0; i < radios.length; i++) {
+                radios[i].disabled = !trueOrFalse;
+            }
+
+            const todosRadios = document.querySelectorAll(".opcoes-escala input");
+
+            for (let i = 0; i < todosRadios.length; i++) {
+                todosRadios[i].disabled = !trueOrFalse;
+            }
+
+        }
+
     }
 
     function avancar() {
+
         if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+
             numeroDaQuestaoAtual++;
 
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
 
-            btnSubmeter.disabled = false;
-            btnProx.disabled = true;
+            document.getElementById('btnSubmeter').disabled = false;
+
+            document.getElementById('btnProx').disabled = true;
+
         } else {
             finalizarJogo();
         }
     }
 
     function tentarNovamente() {
-        // atualiza a página
-        window.location.reload()
+        window.location.reload();
+
     }
 
     function finalizarJogo() {
-        document.getElementById("spanQuestaoExibida").innerHTML = "Você concluiu o questionário! Obrigada por compartilhar seu estilo!";
+
+        document.getElementById("spanQuestaoExibida").innerHTML =
+            "Você concluiu o questionário! Obrigada por compartilhar seu estilo!";
 
         document.getElementById("opcoes").innerHTML = "";
-
         document.getElementById("infoAlternativas").style.display = "none";
         document.getElementById("barraProgresso").style.width = "100%";
-
-        btnSubmeter.disabled = true;
-        btnProx.disabled = true;
-        btnTentarNovamente.disabled = false;
+        document.getElementById("btnSubmeter").disabled = true;
+        document.getElementById("btnProx").disabled = true;
+        document.getElementById("btnTentarNovamente").disabled = false;
 
         console.log("Respostas do usuário:", respostasUsuario);
+
     }
+
 </script>
 
+</body>
 </html>
