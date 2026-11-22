@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FFF8EE;
+    font-family: 'Jost', sans-serif;
+    color: #1A1A1A;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(255, 246, 233, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: black;
+    margin-left: 0;
+    text-decoration: none;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 40px;
+}
+
+.navbar nav a {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding-bottom: 2px;
+}
+
+.navbar nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+    width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-actions a {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-actions a:first-child {
+    position: relative;
+    color: black;
+    text-decoration: none;
+    padding-bottom: 4px;
+}
+
+.nav-actions a:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-actions a:first-child:hover::after {
+    width: 100%;
+}
+
+.nav-actions a:last-child {
+    background-color: black;
+    color: #FAF6F0;
+    padding: 10px 20px;
+    border-radius: 2px;
+}
+
+.nav-actions a:last-child:hover {
+    background-color: #CE1B51;
+}
+
+.dashboard-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 24px;
+}
+
+.sessao-dash {
+    max-width: 580px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-logo {
+    width: 210px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+.subtitulo {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #CE1B51;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.titulo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2.35rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.15;
+    margin-bottom: 14px;
+}
+
+.descricao {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #2d2422;
+    max-width: 520px;
+    margin-bottom: 24px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: #160a09;
+    color: #FAF6F0;
+    text-decoration: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 14px 36px;
+    border-radius: 2px;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+    background-color: #CE1B51;
+    transform: translateY(-1px);
+}
+
+.footer {
+    padding: 22px 24px;
+    background-color: #FFF8EE;
+    border-top: 1px solid rgba(26, 26, 26, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-brand .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: black;
+    margin-right: 50px;
+}
+
+.footer-brand p {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    color: #4e4e4e;
+    font-weight: 300;
+    margin: 0;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.footer-nav a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: #1A1A1A;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.footer-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease;
+}
+
+.footer-nav a:hover::after {
+    width: 100%;
+}
+
+.footer-nav a:hover {
+    color: #CE1B51;
+}

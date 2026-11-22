@@ -69,7 +69,7 @@ CREATE TABLE perfil_quiz(
 CREATE TABLE alternativa_perfil (
     fk_alternativa_quiz INT,
     fk_perfil_quiz INT,
-    peso INT NOT NULL,
+    peso DECIMAL(5,2) NOT NULL,
 
     PRIMARY KEY (fk_alternativa_quiz, fk_perfil_quiz),
 
@@ -82,7 +82,7 @@ CREATE TABLE alternativa_perfil (
 
 CREATE TABLE resultado_perfil(
 	id_resultado_perfil INT PRIMARY KEY AUTO_INCREMENT,
-    pontuacao INT,
+    pontuacao DECIMAL(8,2),
     fk_perfil_quiz INT,
     fk_tentativa_quiz INT,
     
@@ -103,7 +103,7 @@ INSERT INTO perfil_quiz (nome, descricao) VALUES
 ('Exploradora', 'Gosta de experimentar novos estilos, tendências, cores e combinações, descobrindo diferentes possibilidades de expressão.'),
 ('Prática', 'Prioriza conforto, funcionalidade e versatilidade, buscando roupas que facilitem suas escolhas e acompanhem sua rotina.'),
 ('Atemporal', 'Prefere peças clássicas, elegantes e versáteis, valorizando combinações equilibradas que permanecem relevantes ao longo do tempo.'),
-('Adáptavel', 'Transita entre diferentes estilos e propostas, adaptando suas escolhas de acordo com a ocasião, o momento e suas preferências.');
+('Adaptável', 'Transita entre diferentes estilos e propostas, adaptando suas escolhas de acordo com a ocasião, o momento e suas preferências.');
 
 
 -- ordem_exibição = a ordem em que as perguntas vão aparecer

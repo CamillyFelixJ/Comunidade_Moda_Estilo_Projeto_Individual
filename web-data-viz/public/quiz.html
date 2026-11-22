@@ -457,7 +457,7 @@ function calcularPerfil(respostas) {
             ordenarImportancia: false,
             opcoes: [
                 `Preto e branco`,
-                `Tons neutros(bege, marrom, cinza)`,
+                `Tons neutros (bege, marrom, cinza)`,
                 `Tons pastéis`,
                 `Cores vibrantes`,
                 `Tons terrosos`,
@@ -579,7 +579,7 @@ function calcularPerfil(respostas) {
             afirmacoes: [
                 {
                     id: `planeja`,
-                    texto: `Planejo minha compras com antecedência`
+                    texto: `Planejo minhas compras com antecedência`
                 },
 
                 {
@@ -1068,19 +1068,52 @@ function calcularPerfil(respostas) {
         window.location.reload();
 
     }
+//async = precisa esperar a resposta da API antes de continuar
+    async function finalizarJogo() {
 
-    function finalizarJogo() {
+    let resultado;
+    
+    //try = código que eu quero executar
+    //catch = código executado se acontecer algum erro
 
-        let resultado;
+    try {
+        resultado = calcularPerfil(respostasUsuario);
+    } catch (erro) {
+        console.error("Erro ao calcular o resultado:", erro);
+        alert("Não foi possível gerar seu resultado. Tente novamente.");
+        return;
+    }
 
-        try {
-            resultado = calcularPerfil(respostasUsuario);
-            localStorage.setItem(CHAVE_RESULTADO, JSON.stringify(resultado));
-        } catch (erro) {
-            console.error("Erro ao calcular ou salvar o resultado:", erro);
-            alert("Não foi possível gerar seu resultado. Tente novamente.");
-            return;
+    let id_usuario = sessionStorage.ID_USUARIO;
+
+    if (id_usuario == undefined) {
+        alert("Não foi possível identificar o usuário. Faça login novamente.");
+        return;
+    }
+
+    try {
+
+        let respostaAPI = await fetch("http://localhost:3333/quiz/salvar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id_usuario: id_usuario,
+                respostas: respostasUsuario
+            })
+        });
+
+        if (!respostaAPI.ok) {
+            let erro = await respostaAPI.text();
+            throw new Error(erro);
         }
+
+        let dados = await respostaAPI.json();
+
+        console.log("Retorno da API:", dados);
+
+        localStorage.setItem(CHAVE_RESULTADO, JSON.stringify(resultado));
 
         console.log("Respostas do usuário:", respostasUsuario);
         console.log("Resultado:", resultado);
@@ -1090,7 +1123,11 @@ function calcularPerfil(respostas) {
 
         window.location.href = "resultadoQuiz.html";
 
+    } catch (erro) {
+        console.error("Erro ao salvar o quiz:", erro);
+        alert("Não foi possível salvar suas respostas. Tente novamente.");
     }
+}
 
 </script>
 

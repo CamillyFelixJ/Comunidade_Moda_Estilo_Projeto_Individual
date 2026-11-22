@@ -11,30 +11,85 @@ var mySqlConfig = {
     port: process.env.DB_PORT
 };
 
+function verificarAmbiente(){
+    if(process.env.AMBIENTE_PROCESSO !== "producao" && process.env.AMBIENTE_PROCESSO !== "desenvolvimento"){
+        return false;
+       } return true;
+}
+
 function executar(instrucao) {
 
-    if (process.env.AMBIENTE_PROCESSO !== "producao" && process.env.AMBIENTE_PROCESSO !== "desenvolvimento") {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM .env OU dev.env OU app.js\n");
+     if (!verificarAmbiente()) {
         return Promise.reject("AMBIENTE NÃO CONFIGURADO EM .env");
     }
+        return new Promise(function (resolve, reject) {
 
-    return new Promise(function (resolve, reject) {
         var conexao = mysql.createConnection(mySqlConfig);
-        conexao.connect();
-        conexao.query(instrucao, function (erro, resultados) {
-            conexao.end();
-            if (erro) {
-                reject(erro);
+
+        conexao.connect(function (erroConexao) {
+            if (erroConexao) {
+                conexao.end();
+                return reject(erroConexao);
             }
-            console.log(resultados);
-            resolve(resultados);
-        });
-        conexao.on('error', function (erro) {
-            return ("ERRO NO MySQL SERVER: ", erro.sqlMessage);
+            conexao.query(instrucao, function (erro, resultados) {
+
+                conexao.end();
+
+                if (erro) {
+                    return reject(erro);
+                }
+                resolve(resultados);
+            });
         });
     });
 }
 
-module.exports = {
-    executar
-};
+async function executarTransacao(operacao){
+    if (!verificarAmbiente()) {
+        return Promise.reject("AMBIENTE NÃO CONFIGURADO EM .env");
+    }
+
+    return new Promise(function (resolve, reject) {
+
+        var conexao = mysql.createConnection(mySqlConfig);
+
+        conexao.connect(function (erroConexao) {
+
+            if (erroConexao) {
+                conexao.end();
+                return reject(erroConexao);
+            }
+
+            var conexaoPromise = conexao.promise();
+
+            async function executarOperacao() {
+
+                try {
+
+                    await conexaoPromise.beginTransaction();
+                    var resultado = await operacao(conexaoPromise); //permite que o model envie várias instruções SQL utilizando a mesma conexão
+                    await conexaoPromise.commit();
+
+                    resolve(resultado);
+
+                } catch (erro) {
+
+                    try {
+                        await conexaoPromise.rollback();
+                    } catch (erroRollback) {
+                        console.log("Erro ao desfazer transação:", erroRollback);
+                    }
+
+                    reject(erro);
+
+                } finally {
+                    conexao.end();
+                }
+            }
+
+            executarOperacao();
+        });
+    });
+}
+
+module.exports = {executar, executarTransacao};

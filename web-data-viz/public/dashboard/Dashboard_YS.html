@@ -1,229 +1,376 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Your Style</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Your Style</title>
 
-  <script src="./js/sessao.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <link rel="icon" href="../assets/logo5.png">
-  <link rel="stylesheet" href="../css/dashboards.css">
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/logo5.png">
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <header class="navbar">
-    <div class="logo"><i>YOUR STYLE</i></div>
-    <nav>
-      <a href="../comunidade.html">Comunidade</a>
-      <a href="../quiz.html">Quiz de Estilo</a>
-      <a href="Dashboard_YS.html">Dashboard</a>
-    </nav>
+    <header class="navbar">
+        <div class="logo"><i>YOUR STYLE</i></div>
 
-    <div class="nav-actions">
-      <a href="../index.html">Sair</a>
-    </div>
-  </header>
+        <nav>
+            <a href="../comunidade.html">Comunidade</a>
+            <a href="../quiz.html">Quiz de Estilo</a>
+            <a href="Dashboard_YS.html">Dashboard</a>
+        </nav>
 
-  <!-- Conteúdo Principal -->
-  <main class="container">
-    <h1 class="titulo-principal">Seu painel</h1>
-
-    <!-- Linha dos 4 Cards superiores -->
-    <section class="linha-cards">
-      <div class="card">
-        <p class="card-titulo">PERFIL COMPORTAMENTAL</p>
-        <p class="card-valor">Clássica</p>
-      </div>
-
-      <div class="card">
-        <p class="card-titulo">ESTILOS PREDOMINANTES</p>
-        <div class="grafico-pequeno">
-          <canvas id="graficoEstilos"></canvas>
+        <div class="nav-actions">
+            <a href="../index.html">Sair</a>
         </div>
-      </div>
+    </header>
 
-      <div class="card">
-        <p class="card-titulo">FREQUÊNCIA DE COMPRAS</p>
-        <p class="card-valor">A cada 2 ou 3 meses</p>
-      </div>
+    <!-- Conteúdo Principal -->
+    <main class="container">
 
-      <div class="card">
-        <p class="card-titulo">GASTO MENSAL</p>
-        <p class="card-valor">R$200 a R$400</p>
-      </div>
-    </section>
+        <h1 class="titulo-principal">Seu painel</h1>
 
-    <section class="linha-graficos">
-      <div class="bloco-esquerda">
-        <div class="caixa-grafico-barras">
-          <p class="subtitulo">SEU COMPORTAMENTO DE COMPRAS</p>
-          <div class="area-barras">
-            <canvas id="graficoBarras"></canvas>
-          </div>
-        </div>
-      </div>
+        <!-- Linha dos 4 Cards superiores -->
+        <section class="linha-cards">
 
-      <div class="bloco-direita">
-        <div class="caixa-grafico-pizza">
-          <p class="subtitulo">FATORES DE DECISÃO</p>
-          <div class="conteudo-pizza">
-            <div class="grafico-pizza">
-              <canvas id="graficoPizza"></canvas>
+            <div class="card">
+                <p class="card-titulo">PERFIL COMPORTAMENTAL</p>
+                <p class="card-valor" id="perfilComportamental">Clássica</p>
             </div>
 
-            <div id="legendaPizza" class="legenda-pizza"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+            <div class="card">
+                <p class="card-titulo">ESTILOS PREDOMINANTES</p>
+                <div class="grafico-pequeno">
+                    <canvas id="graficoEstilos"></canvas>
+                </div>
+            </div>
 
-  <script>
-    // 1. Gráfico de Rosca - Estilos Predominantes
-    const ctxEstilos = document.getElementById('graficoEstilos');
+            <div class="card">
+                <p class="card-titulo">FREQUÊNCIA DE COMPRAS</p>
+                <p class="card-valor" id="frequenciaCompras">A cada 2 ou 3 meses</p>
+            </div>
+
+            <div class="card">
+                <p class="card-titulo">GASTO MENSAL</p>
+                <p class="card-valor" id="gastoMensal">R$200 a R$400</p>
+            </div>
+
+        </section>
+
+        <section class="linha-graficos">
+
+            <div class="bloco-esquerda">
+
+                <div class="caixa-grafico-barras">
+                    <p class="subtitulo">SEU COMPORTAMENTO DE COMPRAS</p>
+
+                    <div class="area-barras">
+                        <canvas id="graficoBarras"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bloco-direita">
+
+                <div class="caixa-grafico-pizza">
+                    <p class="subtitulo">FATORES DE DECISÃO</p>
+
+                    <div class="conteudo-pizza">
+
+                        <div class="grafico-pizza">
+                            <canvas id="graficoPizza"></canvas>
+                        </div>
+
+                        <div id="legendaPizza" class="legenda-pizza"></div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        function atualizarGraficoEstilos(estilos) {
+
+    var valores = [];
+
+    // Cada estilo selecionado recebe o mesmo valor
+    for (var i = 0; i < estilos.length; i++) {
+        valores.push(1);
+    }
+
+    var ctxEstilos = document.getElementById('graficoEstilos');
 
     new Chart(ctxEstilos, {
-      type: 'doughnut',
-      data: {
-        labels: ['Clássico', 'Romântico', 'Casual'],
-        datasets: [{
-          data: [50, 30, 20],
-          backgroundColor: ['#c9184a', '#e07a96', '#f7cad0'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'right',
-            labels: {
-              boxWidth: 8,
-              usePointStyle: true,
-              font: { size: 9 }
-            }
-          }
-        }
-      }
-    });
+        type: 'doughnut',
 
-    // 2. Gráfico de Barras - Comportamento de Compras
-    const ctxBarras = document.getElementById('graficoBarras');
+        data: {
+            labels: estilos,
+
+            datasets: [{
+                data: valores,
+                backgroundColor: [
+                    '#c9184a',
+                    '#e07a96',
+                    '#f7cad0'
+                ],
+                borderWidth: 0
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    position: 'right',
+
+                    labels: {
+                        boxWidth: 8,
+                        usePointStyle: true,
+                        font: {
+                            size: 9
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+        function atualizarGraficoBarras(comportamentos, valores) {
+
+    var ctxBarras = document.getElementById('graficoBarras');
 
     new Chart(ctxBarras, {
-      type: 'bar',
-      data: {
-        labels: [
-          'Planejamento',
-          'Pesquisa',
-          'Compra por Interesse',
-          'Compra por Impulso',
-          'Reposição',
-          'Peças pouco utilizadas'
-        ],
-        datasets: [{
-          label: 'Nível',
-          data: [5, 5, 3, 4, 2, 1],
-          backgroundColor: '#eb5381',
-          borderRadius: 4,
-          barThickness: 18
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          }
+        type: 'bar',
+
+        data: {
+            labels: comportamentos,
+
+            datasets: [{
+                label: 'Nível',
+                data: valores,
+                backgroundColor: '#eb5381',
+                borderRadius: 4,
+                barThickness: 18
+            }]
         },
-        scales: {
-          x: {
-            beginAtZero: true,
-            max: 5,
-            ticks: {
-              stepSize: 1
+
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 5,
+
+                    ticks: {
+                        stepSize: 1
+                    }
+                },
+
+                y: {
+                    grid: {
+                        display: false
+                    }
+                }
             }
-          },
-          y: {
-            grid: {
-              display: false
+        }
+    });
+}
+
+        // 3. Função para atualizar o Gráfico de Pizza - Fatores de Decisão
+
+        function atualizarGraficoPizza(fatores) {
+
+            var cores = [
+                '#59041d',
+                '#8c0830',
+                '#c9386b'
+            ];
+
+            var valores = [];
+
+            // Cada alternativa selecionada recebe o mesmo valor
+            for (var i = 0; i < fatores.length; i++) {
+                valores.push(1);
             }
-          }
+
+            // Cria o gráfico com as alternativas recebidas da API
+            var ctxPizza = document.getElementById('graficoPizza');
+
+            new Chart(ctxPizza, {
+                type: 'pie',
+
+                data: {
+                    labels: fatores,
+
+                    datasets: [{
+                        data: valores,
+                        backgroundColor: cores,
+                        borderWidth: 0
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.label + ': alternativa selecionada';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
+            // Atualiza a legenda lateral
+            var containerLegenda = document.getElementById('legendaPizza');
+
+            containerLegenda.innerHTML = '';
+
+            for (var i = 0; i < fatores.length; i++) {
+
+                containerLegenda.innerHTML += `
+                    <div class="item-legenda">
+                        <div class="info-esquerda">
+                            <span class="cor-legenda" style="background-color: ${cores[i]};"></span>
+                            <span>${fatores[i]}</span>
+                        </div>
+
+                        <span class="valor-legenda">Selecionada</span>
+                    </div>
+                `;
+            }
         }
-      }
-    });
 
-    // 3. Gráfico de Pizza - Fatores de Decisão
-    const ctxPizza = document.getElementById('graficoPizza');
 
-    const dadosPizza = {
-      labels: [
-        'Preço e custo-benefício',
-        'Conforto',
-        'Beleza e aparência',
-        'Tendências da moda',
-        'Versatilidade',
-        'Qualidade e durabilidade'
-      ],
-      valores: [17.6, 29.4, 17.6, 5.9, 17.6, 11.8],
-      cores: [
-        '#59041d',
-        '#8c0830',
-        '#c9386b',
-        '#eb5381',
-        '#f794b8',
-        '#fad2e1'
-      ]
-    };
+        // 4. Buscar informações da Dashboard na API
 
-    new Chart(ctxPizza, {
-      type: 'pie',
-      data: {
-        labels: dadosPizza.labels,
-        datasets: [{
-          data: dadosPizza.valores,
-          backgroundColor: dadosPizza.cores,
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
-      }
-    });
+        
+function verificarDashboard() {
 
-    // Preenchendo o Quadro de Informações ao lado do gráfico
-    const containerLegenda = document.getElementById('legendaPizza');
+    var id_usuario = sessionStorage.ID_USUARIO;
 
-    dadosPizza.labels.forEach((label, index) => {
-      const cor = dadosPizza.cores[index];
-      const valor = dadosPizza.valores[index];
+    if (id_usuario == undefined) {
+        console.log("ID do usuário não encontrado na sessão.");
+        return;
+    }
 
-      containerLegenda.innerHTML += `
-        <div class="item-legenda">
-          <div class="info-esquerda">
-            <span class="cor-legenda" style="background-color: ${cor};"></span>
-            <span>${label}</span>
-          </div>
-          <span class="valor-legenda">${valor}%</span>
-        </div>
-      `;
-    });
-  </script>
+    fetch(`http://localhost:3333/quiz/dashboard/${id_usuario}`)
+
+        .then(function (resposta) {
+
+            if (!resposta.ok) {
+                throw new Error("Erro ao buscar os dados: " + resposta.status);
+            }
+
+            return resposta.json();
+
+        })
+
+        .then(function (dados) {
+
+            console.log("Dados recebidos da API:", dados);
+
+            // Exibe o perfil comportamental
+            perfilComportamental.innerHTML = dados.perfil.nome;
+
+            var frequencia = "";
+            var gasto = "";
+
+            var fatores = [];
+            var estilos = [];
+
+            var comportamentos = [];
+            var valoresComportamentos = [];
+
+            // Percorre as respostas recebidas pela API
+            for (var i = 0; i < dados.respostas.length; i++) {
+
+                // Pergunta 1 - Estilos predominantes
+                if (dados.respostas[i].pergunta == 1) {
+                    estilos.push(dados.respostas[i].texto);
+                }
+
+                // Pergunta 5 - Fatores de decisão
+                if (dados.respostas[i].pergunta == 5) {
+                    fatores.push(dados.respostas[i].texto);
+                }
+
+                // Pergunta 6 - Frequência de compras
+                if (dados.respostas[i].pergunta == 6) {
+                    frequencia = dados.respostas[i].texto;
+                }
+
+                // Pergunta 7 - Gasto mensal
+                if (dados.respostas[i].pergunta == 7) {
+                    gasto = dados.respostas[i].texto;
+                }
+
+                // Pergunta 9 - Comportamento de compras
+                if (dados.respostas[i].pergunta == 9) {
+                    comportamentos.push(dados.respostas[i].rotulo);
+                    valoresComportamentos.push(Number(dados.respostas[i].valor));
+                }
+            }
+
+            // Atualiza os cards
+            frequenciaCompras.innerHTML = frequencia;
+            gastoMensal.innerHTML = gasto;
+
+            // Atualiza os gráficos
+            atualizarGraficoEstilos(estilos);
+            atualizarGraficoPizza(fatores);
+            atualizarGraficoBarras(comportamentos, valoresComportamentos);
+
+        })
+
+        .catch(function (erro) {
+            console.log(erro);
+        });
+}
+
+// Executa a função
+verificarDashboard();
+
+
+        // Executa a função
+        verificarDashboard();
+
+    </script>
+
 </body>
 
 </html>

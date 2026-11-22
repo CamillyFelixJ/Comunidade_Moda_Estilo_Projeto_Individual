@@ -14,6 +14,8 @@ require("dotenv").config({ path: caminho_env });
 //.config() - executa a configuração do pacote
 //({ path: caminho_env }); - informa qual arquivo deverá ser acrregado
 
+
+//rotas
 var express = require("express");
 //é utiliazdo para criar o servidor, receber requisições do front-end, definir rotas, enviar respostas, trabalhar com os dados enviados pelos usuários
 
@@ -23,6 +25,7 @@ var cors = require("cors");
 var path = require("path");
 //é um módulo nativo do NOde.js
 // require() - é uma forma de importar modulos no Node.js
+
 
 //recuperando informações do arquivo .env.dev que foi carregado anteriormente
 //permite que os outros arquivos da API acessem as configurações carregadas
@@ -42,12 +45,13 @@ var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
-
+var quizRouter = require("./src/routes/quiz");
 
 //permite que o express interprete dados enviados no formato JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+
 //arquivos estáticos
 
 //cors?
@@ -59,6 +63,7 @@ app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
+app.use("/quiz", quizRouter);
 
 //require() - importa o arquivo
 //app.use() - registra as rotas na aplicação
