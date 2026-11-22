@@ -1,427 +1,253 @@
-/* pagina mural */
-
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #FFF8EE;
+    font-family: 'Jost', sans-serif;
+    color: #1A1A1A;
+    padding-top: 80px;
 }
 
-.label-captura {
-  display: flex;
-  justify-content: center;
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(255, 246, 233, 0.85); 
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 
-.dash-right .avisos {
-  width: 100%;
-  color: rgb(216, 216, 216);
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.navbar .logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: black;
+    margin-left: 0;
 }
 
-.dash-right .avisos .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.navbar nav {
+    display: flex;
+    gap: 40px;
 }
 
-.dash-right .avisos .container .div-form {
-  width: 95%;
+.navbar nav a {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding-bottom: 2px;
 }
 
-.dash-right .avisos .container .div-form #form_postagem {
-  width: 95%;
+.navbar nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
 }
 
-.dash-right .avisos .div-form label {
-  width: 95%;
+.navbar nav a:hover::after,
+.navbar nav a.active::after {
+    width: 100%;
 }
 
-.dash-right .avisos .div-form input {
-  width: 95%;
-  border-radius: 5px;
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
 
-.dash-right .avisos .div-form textarea {
-  width: 95%;
-  border: 3px solid #e6005a;
-  background-color: white;
-  border-radius: 5px;
+.nav-actions a {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dash-right .avisos .div-form button {
-  cursor: pointer;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px 15px;
-  color: white;
-  background-color: #e6005a;
-  width: 120px;
+.nav-actions a:first-child {
+    position: relative;
+    color: black;
+    text-decoration: none;
+    padding-bottom: 4px;
 }
 
-.publicacao-btn-editar {
-  cursor: pointer;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 0;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 5px 8px;
-  color: white;
-  background-color: #e6005a;
-  width: 80px;
+.nav-actions a:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #CE1B51;
+    transition: width 0.3s ease-in-out;
 }
 
-.publicacao {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: stretch;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  border-bottom: 3px solid #e6005a;
-  padding: 20px;
+.nav-actions a:first-child:hover::after {
+    width: 100%;
 }
 
-.publicacao>*:not(:last-child) {
-  padding: 0 0 10px 0;
+.nav-actions a:last-child {
+    background-color: black;
+    color: #FAF6F0;
+    padding: 10px 20px;
+    border-radius: 2px;
 }
 
-.div-results {
-  width: 100%;
+.nav-actions a:last-child:hover {
+    background-color: #CE1B51;
 }
 
-.div-results .feed-container {
-  background-color: #212124;
-  border-radius: 5px;
-  margin-bottom: 80px;
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px 8px;
 }
 
-.div-buttons {
-  display: flex;
-  justify-content: flex-end;
+.titulo-principal {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 6px;
 }
 
-.div-buttons>* {
-  margin-left: 30px;
+.linha-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 20px;
 }
 
-/* pagina graficos */
-
-.dash-header {
-  background-color: #212124;
+.card {
+    flex: 1;
+    border: 1px solid #b58d91;
+    padding: 14px 18px;
+    height: 132px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.dash {
-  width: 80%;
-  position: relative;
-  top: 0;
-  left: 20%;
-  background-color: #161618;
-  height: 100vh;
-  overflow: auto;
+.card-titulo {
+    font-size: 11px;
+    color: black;
+    letter-spacing: 0.5px;
 }
 
-.area-parametros-alerta {
-  /* border: 2px solid pink; */
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin: auto;
-  margin-top: 10px;
-  background-color: #212124;
+.card-valor {
+    font-size: 20px;
+    color: #7d1532; 
+    margin-bottom: 25px;
 }
 
-.area-parametros-alerta .titulo-legenda {
-  color: white;
-  font-weight: 600;
-  width: fit-content;
-  margin: 10px 20px;
+.grafico-pequeno {
+    width: 100%;
+    height: 74px;
 }
 
-.parametros-alerta {
-  display: flex;
-  width: 100%;
+.linha-graficos {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 36px;
+    margin-top: 30px;
 }
 
-.item-regua {
-  width: 20%;
-  text-align: center;
-  height: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center;
+.bloco-esquerda,
+.bloco-direita {
+    flex: 1;
+    min-width: 0;
 }
 
-.item-regua p {
-  margin: 0;
-  font-weight: 500;
+.subtitulo {
+    font-size: 11px;
+    color: black;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
 }
 
-.item-regua p:nth-child(2) {
-  font-weight: 800;
+.caixa-grafico-barras,
+.caixa-grafico-pizza {
+    border: 1px solid #b58d91;
+    padding: 14px 18px;
+    height: 272px;
+    display: flex;
+    flex-direction: column;
 }
 
-.perigo-frio {
-  background-color: #5c6bc0;
+.area-barras {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
 }
 
-.perigo-quente {
-  background-color: #ff7043;
+.conteudo-pizza {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
 }
 
-.alerta-frio {
-  background-color: #42a5f5;
+.grafico-pizza {
+    width: 44%;
+    height: 190px;
+    position: relative;
 }
 
-.alerta-quente {
-  background-color: #ffee58;
+.legenda-pizza {
+    width: 56%;
+    border: 1px solid #b58d91;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    background-color: #fdf6ef;
 }
 
-.ideal {
-  background-color: #9ccc65;
+.item-legenda {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 11px;
+    color: #1c100b;
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  height: 450px;
-  width: 100%;
-  align-items: center;
-  color: white;
+.info-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.card-aquario {
-  margin: 2%;
-  min-width: 40%;
-  max-width: 50%;
-  width: fit-content;
-  flex-wrap: wrap;
-  display: flex;
-  /* text-align: center; */
-  height: 180px;
-  /* justify-content: right; */
-  background-color: #212124;
-  font-size: 20px;
+.cor-legenda {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
 }
 
-.card-aquario h1 {
-  width: fit-content;
-}
-
-.card-aquario p {
-  margin: 0;
-  font-size: 50px;
-  font-weight: lighter;
-  text-align: left;
-}
-
-.desc-aquario {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-}
-
-.desc-aquario .cor-alerta {
-  width: 30px;
-}
-
-.title-aquario {
-  width: 100%;
-}
-
-
-.cards h1 {
-  font-size: 22px;
-  border-bottom: solid white 1px;
-  text-align: left;
-  font-weight: lighter;
-  margin: 20px;
-}
-
-.temperatura {
-  margin: 5px;
-  margin-left: 20px;
-  width: 75%;
-}
-
-.cor-alerta {
-  width: 13%;
-  height: 30%;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.btns-dash {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
-  flex-wrap: wrap;
-  padding: 0 30% 0 30%;
-}
-
-.graph {
-  width: 70%;
-  margin: auto;
-  padding-top: 10px;
-}
-
-.tituloGraficos {
-  color: rgb(216, 216, 216);
-  display: flex;
-  justify-content: center;
-}
-
-.btn-chart {
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 0;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px 15px;
-  color: #e6005a;
-  background-color: white;
-  margin: 5px;
-  border-radius: 3px;
-  cursor: pointer
-}
-
-.btn-pink {
-  color: white;
-  background-color: #e6005a;
-}
-
-.btn-white {
-  color: #e6005a;
-  background-color: white;
-
-}
-
-.label-captura {
-  height: 80px;
-}
-
-.display-none {
-  display: none;
-}
-
-.display-flex {
-  display: flex;
-}
-
-.display-block {
-  display: block;
-}
-
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* PAGINA DOS GRÁFICOS 2023-2026 */
-
-.janela {
-  display: flex;
-  /* width: 100vw; */
-}
-
-.header-left a {
-  text-decoration: none;
-  color: white;
-}
-
-.header-left {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  height: 100vh;
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  border-right: 3px solid #32b9cd;
-  background-color: #212124;
-}
-
-.dash-right {
-  display: flex;
-  width: 70%;
-  height: fit-content;
-  background-color: #161618;
-  position: relative;
-  top: 0;
-  left: 25%;
-  height: 100vh;
-  overflow: auto;
-}
-
-.header-left h1 {
-  color: #32b9cd;
-}
-
-.hello {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.hello h3 {
-  color: #e3b062;
-  font-weight: 300;
-  font-size: 1.2rem;
-}
-
-.hello h3 span {
-  font-weight: 800;
-}
-
-.btn-nav {
-  width: 40%;
-  color: white;
-  background-color: #e6005a;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
-}
-
-.btn-nav-white {
-  width: 40%;
-  background-color: white;
-  border: 3px solid #e6005a;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
-}
-
-.btn-nav-white h3 {
-  color: #e6005a;
-  padding: 0;
-  margin: 0;
-}
-
-.btn-nav h3,
-.btn-logout h3 {
-  margin: 0;
-  padding: 0;
-}
-
-.btn-logout {
-  margin: 0;
-  padding: 0;
-  width: 20%;
-  background-color: #32b9cd;
-  color: white;
-  border-radius: 10px;
-  text-align: center;
-  padding: 10px 15px;
-  margin-bottom: 100px;
-  cursor: pointer;
+.valor-legenda {
+    font-weight: bold;
+    color: #7d1532;
 }

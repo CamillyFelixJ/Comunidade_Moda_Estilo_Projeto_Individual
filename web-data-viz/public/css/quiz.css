@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -6,13 +5,10 @@
 }
 
 body {
-    background-color: #FFE4EC;
+    background-color: #FFF8EE;
     font-family: 'Jost', sans-serif;
     color: #1A1A1A;
-    padding-top: 70px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    padding-top: 80px;
 }
 
 .navbar {
@@ -21,13 +17,13 @@ body {
     left: 0;
     width: 100%;
     height: 70px;
-    background-color: rgba(255, 228, 236, 0.9);
+    background-color: rgba(255, 246, 233, 0.85); 
     backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 32px;
-    border-bottom: 1px solid rgba(26, 26, 26, 0.25);
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
 
@@ -36,23 +32,24 @@ body {
     font-size: 1.5rem;
     font-weight: 500;
     letter-spacing: 2px;
-    color: #1A1A1A;
+    color: black;
+    margin-left: 0;
 }
 
 .navbar nav {
     display: flex;
-    gap: 32px;
+    gap: 40px;
 }
 
 .navbar nav a {
     position: relative;
     text-decoration: none;
-    color: #1A1A1A;
-    font-size: 13px;
-    font-weight: 400;
+    color: black;
+    font-size: 15px;
+    font-weight: 300;
     cursor: pointer;
-    padding-bottom: 4px;
     transition: color 0.3s ease;
+    padding-bottom: 2px;
 }
 
 .navbar nav a::after {
@@ -77,11 +74,18 @@ body {
     gap: 24px;
 }
 
+.nav-actions a {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .nav-actions a:first-child {
     position: relative;
-    color: #1A1A1A;
+    color: black;
     text-decoration: none;
-    font-size: 14px;
     padding-bottom: 4px;
 }
 
@@ -101,13 +105,10 @@ body {
 }
 
 .nav-actions a:last-child {
-    background-color: #1A1A1A;
+    background-color: black;
     color: #FAF6F0;
-    padding: 8px 24px;
+    padding: 10px 20px;
     border-radius: 2px;
-    text-decoration: none;
-    font-size: 13px;
-    transition: background-color 0.3s ease;
 }
 
 .nav-actions a:last-child:hover {
@@ -166,6 +167,7 @@ body {
     margin-bottom: 40px;
     line-height: 1.6;
     max-width: 620px;
+    text-align: center;
 }
 
 .btn-iniciar-quiz {
@@ -242,7 +244,7 @@ body {
 
 .opcoes {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin-bottom: 30px;
 }
@@ -431,11 +433,13 @@ body {
 /* QUESTÃO 9 */
 
 .grupo-afirmacao {
+    grid-column: 1 / -1;
     padding: 18px 0;
     margin-bottom: 8px;
     border-bottom: 1px solid #E5DCD0;
     background-color: transparent;
-    display: block;
+    display: flex;
+    flex-direction: row;
     cursor: default;
 }
 
@@ -448,6 +452,7 @@ body {
 .opcoes-escala {
     display: flex;
     align-items: center;
+    flex-direction: row;
     gap: 28px;
     flex-wrap: wrap;
 }
@@ -473,14 +478,13 @@ body {
 
 .footer {
     margin-top: auto;
-    padding: 32px 40px;
+    padding: 32px 32px;
     background-color: #FFE4EC;
     border-top: 1px solid rgba(26, 26, 26, 0.15);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
 }
 
 .footer-brand .logo {
@@ -489,7 +493,7 @@ body {
     font-weight: 500;
     letter-spacing: 2px;
     color: black;
-    margin-bottom: 4px;
+    margin-top: 2px;
 }
 
 .footer-brand p {

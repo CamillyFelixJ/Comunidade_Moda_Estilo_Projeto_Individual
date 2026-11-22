@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Your Style</title>
+
+  <script src="./js/sessao.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="icon" href="../assets/logo5.png">
+  <link rel="stylesheet" href="../css/dashboards.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo"><i>YOUR STYLE</i></div>
+    <nav>
+      <a href="../comunidade.html">Comunidade</a>
+      <a href="../quiz.html">Quiz de Estilo</a>
+      <a href="Dashboard_YS.html">Dashboard</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="../index.html">Sair</a>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="container">
+    <h1 class="titulo-principal">Seu painel</h1>
+
+    <!-- Linha dos 4 Cards superiores -->
+    <section class="linha-cards">
+      <div class="card">
+        <p class="card-titulo">PERFIL COMPORTAMENTAL</p>
+        <p class="card-valor">Clássica</p>
+      </div>
+
+      <div class="card">
+        <p class="card-titulo">ESTILOS PREDOMINANTES</p>
+        <div class="grafico-pequeno">
+          <canvas id="graficoEstilos"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="card-titulo">FREQUÊNCIA DE COMPRAS</p>
+        <p class="card-valor">A cada 2 ou 3 meses</p>
+      </div>
+
+      <div class="card">
+        <p class="card-titulo">GASTO MENSAL</p>
+        <p class="card-valor">R$200 a R$400</p>
+      </div>
+    </section>
+
+    <section class="linha-graficos">
+      <div class="bloco-esquerda">
+        <div class="caixa-grafico-barras">
+          <p class="subtitulo">SEU COMPORTAMENTO DE COMPRAS</p>
+          <div class="area-barras">
+            <canvas id="graficoBarras"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="bloco-direita">
+        <div class="caixa-grafico-pizza">
+          <p class="subtitulo">FATORES DE DECISÃO</p>
+          <div class="conteudo-pizza">
+            <div class="grafico-pizza">
+              <canvas id="graficoPizza"></canvas>
+            </div>
+
+            <div id="legendaPizza" class="legenda-pizza"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 1. Gráfico de Rosca - Estilos Predominantes
+    const ctxEstilos = document.getElementById('graficoEstilos');
+
+    new Chart(ctxEstilos, {
+      type: 'doughnut',
+      data: {
+        labels: ['Clássico', 'Romântico', 'Casual'],
+        datasets: [{
+          data: [50, 30, 20],
+          backgroundColor: ['#c9184a', '#e07a96', '#f7cad0'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              boxWidth: 8,
+              usePointStyle: true,
+              font: { size: 9 }
+            }
+          }
+        }
+      }
+    });
+
+    // 2. Gráfico de Barras - Comportamento de Compras
+    const ctxBarras = document.getElementById('graficoBarras');
+
+    new Chart(ctxBarras, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Planejamento',
+          'Pesquisa',
+          'Compra por Interesse',
+          'Compra por Impulso',
+          'Reposição',
+          'Peças pouco utilizadas'
+        ],
+        datasets: [{
+          label: 'Nível',
+          data: [5, 5, 3, 4, 2, 1],
+          backgroundColor: '#eb5381',
+          borderRadius: 4,
+          barThickness: 18
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            max: 5,
+            ticks: {
+              stepSize: 1
+            }
+          },
+          y: {
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+
+    // 3. Gráfico de Pizza - Fatores de Decisão
+    const ctxPizza = document.getElementById('graficoPizza');
+
+    const dadosPizza = {
+      labels: [
+        'Preço e custo-benefício',
+        'Conforto',
+        'Beleza e aparência',
+        'Tendências da moda',
+        'Versatilidade',
+        'Qualidade e durabilidade'
+      ],
+      valores: [17.6, 29.4, 17.6, 5.9, 17.6, 11.8],
+      cores: [
+        '#59041d',
+        '#8c0830',
+        '#c9386b',
+        '#eb5381',
+        '#f794b8',
+        '#fad2e1'
+      ]
+    };
+
+    new Chart(ctxPizza, {
+      type: 'pie',
+      data: {
+        labels: dadosPizza.labels,
+        datasets: [{
+          data: dadosPizza.valores,
+          backgroundColor: dadosPizza.cores,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+
+    // Preenchendo o Quadro de Informações ao lado do gráfico
+    const containerLegenda = document.getElementById('legendaPizza');
+
+    dadosPizza.labels.forEach((label, index) => {
+      const cor = dadosPizza.cores[index];
+      const valor = dadosPizza.valores[index];
+
+      containerLegenda.innerHTML += `
+        <div class="item-legenda">
+          <div class="info-esquerda">
+            <span class="cor-legenda" style="background-color: ${cor};"></span>
+            <span>${label}</span>
+          </div>
+          <span class="valor-legenda">${valor}%</span>
+        </div>
+      `;
+    });
+  </script>
+</body>
+
+</html>

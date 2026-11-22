@@ -1,0 +1,224 @@
+Passo a passo: armazenar respostas do quiz e usar os dados na dashboard
+
+Objetivo
+Salvar as respostas do quiz no banco MySQL e disponibilizá-las via API para a dashboard.
+
+Resumo da solução
+- Criar tabelas para armazenar o envio do quiz (guarda o JSON das respostas e o resultado resumido). - FEITO
+- Implementar model, controller e rota na API para receber os dados do front-end.
+- No front-end do quiz, enviar (POST) o resultado/respostas para a API quando o usuário finalizar.
+- Implementar endpoints de consulta/agrupamento que a dashboard consumirá para construir os gráficos.
+
+1) Definir o esquema do banco de dados (MySQL)
+
+Sugestão (execute no seu MySQL):
+
+CREATE TABLE quiz_resposta (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    fk_usuario INT NULL,
+    data_envio DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    principal VARCHAR(50),          -- perfil principal (ex: 'autentica')
+    percentuais JSON,               -- JSON com percentuais/resultados simples
+    respostas JSON,                 -- armazena o array completo de respostasUsuario
+    resultado_json JSON,            -- armazena objeto completo de resultado (principal, outros, pontos, data)
+    FOREIGN KEY (fk_usuario) 
+    REFERENCES usuario(id_usuario)
+);
+
+Observações:
+- Uso de JSON permite consultas com funções JSON do MySQL (JSON_EXTRACT, JSON_CONTAINS).
+- Se sua versão do MySQL não tem suporte JSON, use TEXT e grave JSON.stringify.
+
+- JSON NÃO APLICADO.
+
+2) Criar o model (ex.: src/models/quizModel.js)
+
+Exemplo (siga o padrão dos models existentes):
+
+var database = require("../database/config");
+
+function salvarResposta(fkUsuario, principal, percentuais, respostas, resultado) {
+    // percentuais, respostas e resultado devem ser strings JSON (JSON.stringify antes de chamar)
+    var instrucao = `
+        INSERT INTO quiz_resposta (fk_usuario, principal, percentuais, respostas, resultado_json)
+        VALUES (${fkUsuario === null ? 'NULL' : fkUsuario}, '
+            ${principal}', '${percentuais}', '${respostas}', '${resultado}')
+    `;
+    return database.executar(instrucao);
+}
+
+function listarPorUsuario(fkUsuario) {
+    var instrucao = `SELECT * FROM quiz_resposta WHERE fk_usuario = ${fkUsuario} ORDER BY data_envio DESC`;
+    return database.executar(instrucao);
+}
+
+function contarPorPerfil() {
+    // Retorna contagem por perfil principal (KPI-1)
+    var instrucao = `SELECT principal, COUNT(*) AS total FROM quiz_resposta GROUP BY principal`;
+    return database.executar(instrucao);
+}
+
+module.exports = { salvarResposta, listarPorUsuario, contarPorPerfil };
+
+Notas:
+- Atenção a injeção de SQL: este projeto usa concatenação semelhante em outros models; em produção parametrizar.
+
+3) Criar controller (ex.: src/controllers/quizController.js)
+
+Exemplo:
+
+var quizModel = require('../models/quizModel');
+
+function receberResposta(req, res) {
+    // Body esperado: { fkUsuario, respostasUsuario, resultado }
+    const fkUsuario = req.body.fkUsuario || null;
+    const respostasUsuario = req.body.respostasUsuario;
+    const resultado = req.body.resultado; // objeto com principal, outros, pontos, data
+
+    if (!respostasUsuario || !resultado) {
+        return res.status(400).json({ erro: 'payload inválido' });
+    }
+
+    const principal = resultado.principal ? resultado.principal.chave || resultado.principal.nome : null;
+
+    quizModel.salvarResposta(
+        fkUsuario,
+        principal,
+        JSON.stringify(resultado.pontos || {}),
+        JSON.stringify(respostasUsuario),
+        JSON.stringify(resultado)
+    ).then(result => {
+        res.status(201).json({ id: result.insertId });
+    }).catch(erro => {
+        console.error(erro);
+        res.status(500).json(erro);
+    });
+}
+
+function obterContagemPerfis(req, res) {
+    quizModel.contarPorPerfil().then(resultado => {
+        res.json(resultado);
+    }).catch(erro => {
+        console.error(erro);
+        res.status(500).json(erro);
+    });
+}
+
+module.exports = { receberResposta, obterContagemPerfis };
+
+4) Criar rota (ex.: src/routes/quiz.js) e registrar em app.js
+
+- Criar arquivo src/routes/quiz.js com:
+
+var express = require('express');
+var router = express.Router();
+var quizController = require('../controllers/quizController');
+
+router.post('/responder', quizController.receberResposta);
+router.get('/contagem-perfis', quizController.obterContagemPerfis);
+
+module.exports = router;
+
+- Registrar em app.js (linha de imports/rotas):
+  var quizRouter = require("./src/routes/quiz");
+  app.use("/quiz", quizRouter);
+
+5) Enviar dados do front-end (public/quiz.html)
+
+- Local onde o quiz calcula o resultado: função finalizarJogo().
+- Em vez de (ou além de) salvar em localStorage, envie POST para a API.
+
+Exemplo de alteração mínima na finalizarJogo (após calcular resultado):
+
+try {
+    resultado = calcularPerfil(respostasUsuario);
+    localStorage.setItem(CHAVE_RESULTADO, JSON.stringify(resultado));
+} catch (erro) { ... }
+
+// --- enviar para a API ---
+fetch('/quiz/responder', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        fkUsuario: /* id do usuário se logado, ou null */ null,
+        respostasUsuario: respostasUsuario,
+        resultado: resultado
+    })
+}).then(r => {
+    // opcional: tratar retorno, por exemplo salvar id retornado
+}).catch(e => console.error(e));
+
+window.location.href = "resultadoQuiz.html";
+
+Notas:
+- Se a aplicação já possui fluxo de login (arquivo public/login.html), recupere o id do usuário (por sessão ou token) e envie como fkUsuario.
+
+6) Endpoints para a dashboard
+
+- Exemplos de queries que o dashboard pode consumir:
+
+KPI-1 (perfil predominante):
+  GET /quiz/contagem-perfis -> controller.contarPorPerfil (query: SELECT principal, COUNT(*) AS total ...)
+
+KPI-2 (distribuição de estilos - pergunta 1):
+  Se você armazenou o JSON 'respostas', é possível usar JSON_CONTAINS para contar ocorrências de uma opção:
+
+  -- Exemplo: quantas respostas contêm a opção 'Casual' em qualquer posição
+  SELECT 'Casual' AS estilo, COUNT(*) AS total
+  FROM quiz_resposta
+  WHERE JSON_CONTAINS(respostas, '"Casual"', '$');
+
+  Você pode repetir para cada opção esperada e retornar uma lista.
+
+KPI-3 / KPI-4 (faixa de gastos, frequência):
+  - Para perguntas de escolha única (ex: id 6, 7), crie consultas que filtrem o JSON procurando o campo com id correspondente.
+  - Exemplo para pegar respostas da pergunta id=7 (gasto mensal):
+
+  -- contar quantas vezes cada opção aparece (assume que respostas é array de objetos com propriedade id/respostas)
+  SELECT
+    JSON_UNQUOTE(JSON_EXTRACT(r.resposta_obj, '$.opcao')) AS opcao, COUNT(*) AS total
+  FROM (
+    SELECT JSON_EXTRACT(respostas, CONCAT('$[', idx, '].respostas')) AS resposta_obj
+    FROM quiz_resposta
+    -- Observação: dependendo do formato, você pode precisar ajustar a extração
+  ) r
+  GROUP BY opcao;
+
+Observação prática: trabalhar com JSON no MySQL exige testar a estrutura exata armazenada. Em muitos casos é mais simples armazenar colunas separadas para campos-chave (ex: principal, frequencia_compra, faixa_gasto) além do JSON bruto.
+
+7) Ajustes na dashboard (front-end)
+
+- Arquivos possíveis a alterar: public/dashboard/dashboard.html ou os scripts dentro de public/dashboard/ (buscar onde estão os fetchs que hoje chamam /medidas/...).
+- Substitua/adicione chamadas fetch que pega /medidas/... por chamadas para /quiz/contagem-perfis e outros endpoints que você criou.
+- Exemplo:
+  fetch('/quiz/contagem-perfis')
+    .then(r => r.json())
+    .then(dados => { /* montar gráfico a partir de dados */ });
+
+8) Testes locais
+
+Passos para testar manualmente:
+1. Configure o .env.dev com credenciais do MySQL (DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT).
+2. Rode o script SQL para criar a tabela quiz_resposta.
+3. Inicie a API: npm install && npm start (ou script definido no package.json).
+4. No front-end, abra public/quiz.html no navegador (ou através do servidor estático da API) e faça o quiz.
+5. Ao finalizar, verifique se um novo registro apareceu na tabela quiz_resposta.
+6. Teste os endpoints da dashboard via curl/Postman e consuma no front-end.
+
+9) Segurança e considerações finais
+- Valide o payload no controller antes de salvar.
+- Evite concatenar valores diretamente em SQL em produção — use parametrização/prepared statements.
+- Log de erros e tratamento HTTP adequado (400/500) são importantes.
+- Se quiser implementar anonimato, permita fk_usuario NULL.
+- Para relatórios mais robustos (ex: contar cada opção individualmente), considere extrair e normalizar respostas em tabelas relacionais (quiz_resposta_itens) ao invés de depender só de JSON.
+
+10) Lista resumida de arquivos a criar/alterar
+- Criar: src/models/quizModel.js
+- Criar: src/controllers/quizController.js
+- Criar: src/routes/quiz.js
+- Alterar: app.js -> registrar rota: app.use('/quiz', quizRouter);
+- Alterar: public/quiz.html -> enviar POST para /quiz/responder na finalizarJogo()
+- Criar tabela: src/database/script-tabelas.sql (ou atualizar script existente) / executar SQL no MySQL
+- Alterar/Adicionar: public/dashboard/* para consumir os novos endpoints
+
+Se quiser, eu posso implementar os arquivos de backend (model/controller/route) e a alteração mínima no front-end aqui no repositório. Deseja que eu faça isso automaticamente ou prefere implementar você mesmo seguindo as instruções acima?

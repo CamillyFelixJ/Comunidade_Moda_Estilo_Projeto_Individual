@@ -1,0 +1,239 @@
+/* Estilos da página de resultado (usa as cores e fontes do quiz.css) */
+
+[hidden] {
+    display: none !important;
+}
+
+#cardResultado {
+    max-width: 900px;
+}
+
+.resultado-topo {
+    color: #CE1B51;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #CE1B51;
+}
+
+.resultado-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 36px;
+}
+
+/* Anel de porcentagem */
+
+.anel {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+}
+
+.anel svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.anel-fundo {
+    stroke: #F6D3DC;
+}
+
+.anel-valor {
+    stroke: #CE1B51;
+    stroke-dasharray: 0 327;
+    transition: stroke-dasharray 0.9s ease-out;
+}
+
+.anel-centro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.anel-numero {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: #CE1B51;
+}
+
+.anel-nome {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #5a4a4d;
+}
+
+/* Texto */
+
+.resultado-titulo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 1.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.resultado-titulo em {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #CE1B51;
+}
+
+.resultado-descricao {
+    max-width: 520px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #2B2B2B;
+}
+
+.resultado-linha {
+    max-width: 520px;
+    border: 0;
+    border-top: 1px solid #CE1B51;
+    margin: 26px 0 14px;
+}
+
+.resultado-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #CE1B51;
+    margin-bottom: 14px;
+}
+
+.outro-perfil {
+    max-width: 520px;
+    margin-bottom: 14px;
+}
+
+.outro-linha {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-family: 'Bodoni Moda', serif;
+    font-size: 0.95rem;
+    color: #CE1B51;
+}
+
+.barra {
+    height: 6px;
+    background-color: #F6D3DC;
+}
+
+.barra i {
+    display: block;
+    height: 100%;
+    background-color: #CE1B51;
+}
+
+.resultado-aviso {
+    max-width: 520px;
+    margin-top: 24px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #4a3a3d;
+}
+
+.resultado-aviso b {
+    color: #CE1B51;
+    font-weight: 600;
+}
+
+/* Botões */
+
+.resultado-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.botao {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 2px;
+    border: 1px solid #140808;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.botao-escuro {
+    background-color: #140808;
+    color: #FFF8EE;
+}
+
+.botao-escuro:hover {
+    background-color: #CE1B51;
+    border-color: #CE1B51;
+}
+
+.botao-contorno {
+    background-color: transparent;
+    color: #1A1A1A;
+    border-color: #CE1B51;
+}
+
+.botao-contorno:hover {
+    background-color: #FFE4EC;
+}
+
+.botao-centro {
+    align-self: flex-start;
+}
+
+.botao:focus-visible {
+    outline: 2px solid #1A1A1A;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .anel-valor {
+        transition: none;
+    }
+}
+
+@media (max-width: 720px) {
+
+    #cardResultado {
+        padding: 28px 20px;
+    }
+
+    .resultado-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .resultado-titulo {
+        font-size: 1.5rem;
+    }
+
+    .resultado-titulo em {
+        font-size: 1.65rem;
+    }
+}

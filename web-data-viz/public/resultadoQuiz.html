@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Resultado | YourStyle</title>
+
+    <link rel="icon" href="assets/logo5.png">
+    <link rel="stylesheet" href="./css/quiz.css">
+    <link rel="stylesheet" href="./css/resultado_quiz.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo"><i>YOUR STYLE</i></div>
+
+        <nav>
+            <a href="comunidade.html">Comunidade</a>
+            <a href="quiz.html" class="active">Quiz de Estilo</a>
+            <a href="referencias.html">Dashboard</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="login.html">Perfil</a>
+            <a href="index.html">Sair</a>
+        </div>
+    </header>
+
+    <main class="container-principal">
+
+        <!-- Resultado -->
+        <section class="card-principal" id="cardResultado" hidden>
+
+            <div class="resultado-topo">SEU RESULTADO</div>
+
+            <div class="resultado-grid">
+
+                <div class="anel" id="anel" role="img">
+                    <svg viewBox="0 0 120 120" fill="none" stroke-width="6" aria-hidden="true">
+                        <circle class="anel-fundo" cx="60" cy="60" r="52" />
+                        <circle class="anel-valor" id="anelValor" cx="60" cy="60" r="52" />
+                    </svg>
+                    <div class="anel-centro">
+                        <span class="anel-numero" id="anelNumero"></span>
+                        <span class="anel-nome" id="anelNome"></span>
+                    </div>
+                </div>
+
+                <div class="resultado-texto">
+
+                    <h1 class="resultado-titulo">
+                        Seu perfil: <em id="tituloPerfil"></em>
+                    </h1>
+
+                    <p class="resultado-descricao" id="descricaoPerfil"></p>
+
+                    <div id="blocoOutros">
+                        <hr class="resultado-linha">
+
+                        <h2 class="resultado-sub">Também combina com você</h2>
+
+                        <div id="listaOutros"></div>
+                    </div>
+
+                    <p class="resultado-aviso">
+                        Seu resultado é só o começo. Acesse sua <b>dashboard</b> para explorar mais detalhes sobre
+                        suas preferências, hábitos e relação com a moda.
+                    </p>
+
+                    <div class="resultado-botoes">
+                        <a href="referencias.html" class="botao botao-escuro">Acessar a Dashboard</a>
+                        <a href="quiz.html" class="botao botao-contorno" onclick="limparResultado()">Refazer Quiz</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Caso a pessoa abra a página sem ter feito o quiz -->
+        <section class="card-principal coluna-flex" id="cardVazio" hidden>
+            <span class="subtitulo-topo">SEU RESULTADO</span>
+            <h1 class="titulo-principal">Você ainda não fez o quiz</h1>
+            <p class="texto-descricao">
+                Responda às perguntas do Quiz de Estilo para descobrir o seu perfil.
+            </p>
+            <a href="quiz.html" class="botao botao-escuro botao-centro">Fazer o Quiz</a>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+
+        <div class="footer-brand">
+            <div class="logo"><i>YOUR STYLE</i></div>
+            <p>Descubra sua essência, estilo e autoconfiança</p>
+        </div>
+
+        <nav class="footer-nav">
+            <a href="comunidade.html">Comunidade</a>
+            <a href="quiz.html">Quiz de Estilo</a>
+            <a href="referencias.html">Dashboard</a>
+        </nav>
+
+    </footer>
+
+    <script src="./js/resultadoQuiz.js"></script>
+    <script>
+
+        const CIRCUNFERENCIA = 2 * Math.PI * 52;
+
+        function limparResultado() {
+            try { localStorage.removeItem(CHAVE_RESULTADO); } catch (e) { }
+        }
+
+        function lerResultado() {
+            try {
+                return JSON.parse(localStorage.getItem(CHAVE_RESULTADO));
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function mostrarResultado() {
+
+            const resultado = lerResultado();
+
+            if (!resultado || !resultado.principal) {
+                document.getElementById("cardVazio").hidden = false;
+                return;
+            }
+
+            const principal = resultado.principal;
+            const perfil = PERFIS[principal.chave];
+
+            document.getElementById("cardResultado").hidden = false;
+            document.title = "Perfil " + perfil.nome + " | YourStyle";
+
+            document.getElementById("tituloPerfil").textContent = principal.percentual + "% " + perfil.nome;
+            document.getElementById("descricaoPerfil").textContent = perfil.descricao;
+
+            document.getElementById("anelNumero").textContent = principal.percentual + "%";
+            document.getElementById("anelNome").textContent = perfil.nome;
+            document.getElementById("anel").setAttribute("aria-label", principal.percentual + "% " + perfil.nome);
+
+            // Anel de progresso
+            const anel = document.getElementById("anelValor");
+            const preenchido = (principal.percentual / 100) * CIRCUNFERENCIA;
+
+            anel.style.strokeDasharray = preenchido + " " + CIRCUNFERENCIA;
+
+            // Perfis que também combinam
+            const lista = document.getElementById("listaOutros");
+
+            if (resultado.outros.length === 0) {
+                document.getElementById("blocoOutros").hidden = true;
+            }
+
+            for (let i = 0; i < resultado.outros.length; i++) {
+
+                const outro = resultado.outros[i];
+
+                const linha = document.createElement("div");
+                linha.className = "outro-perfil";
+                linha.innerHTML =
+                    '<div class="outro-linha"><span></span><span></span></div>' +
+                    '<div class="barra"><i></i></div>';
+
+                linha.querySelectorAll("span")[0].textContent = outro.nome;
+                linha.querySelectorAll("span")[1].textContent = outro.percentual + "%";
+                linha.querySelector("i").style.width = outro.percentual + "%";
+
+                lista.appendChild(linha);
+            }
+        }
+
+        mostrarResultado();
+
+    </script>
+
+</body>
+
+</html>
