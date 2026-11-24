@@ -292,7 +292,12 @@ function verificarDashboard() {
 
         .then(function (resposta) {
 
-            if (!resposta.ok) {
+            if(resposta.status == 404){
+                window.location.href = "dash_sem_quiz.html";
+                return null;
+            }
+
+            if (resposta.ok == undefined) {
                 throw new Error("Erro ao buscar os dados: " + resposta.status);
             }
 
@@ -302,9 +307,12 @@ function verificarDashboard() {
 
         .then(function (dados) {
 
-            console.log("Dados recebidos da API:", dados);
+            //vreificação para ver se a pessoa já fez o quiz
 
-            // Exibe o perfil comportamental
+            if(dados == null){
+                return;
+            }
+
             perfilComportamental.innerHTML = dados.perfil.nome;
 
             var frequencia = "";
@@ -362,12 +370,7 @@ function verificarDashboard() {
         });
 }
 
-// Executa a função
 verificarDashboard();
-
-
-        // Executa a função
-        verificarDashboard();
 
     </script>
 
