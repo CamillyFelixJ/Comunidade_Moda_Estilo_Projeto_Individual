@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -13,7 +12,9 @@
 
     <link rel="icon" href="../assets/logo5.png">
     <link rel="stylesheet" href="../css/dashboards.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -48,7 +49,10 @@
             <div class="card">
                 <p class="card-titulo">ESTILOS PREDOMINANTES</p>
                 <div class="grafico-pequeno">
-                    <canvas id="graficoEstilos"></canvas>
+                    <div class="area-rosca-pequena">
+                        <canvas id="graficoEstilos"></canvas>
+                    </div>
+                    <div id="legendaEstilos" class="legenda-estilos-lateral"></div>
                 </div>
             </div>
 
@@ -103,103 +107,112 @@
     <script>
 
         function atualizarGraficoEstilos(estilos) {
+            var cores = [
+                '#c9184a',
+                '#e07a96',
+                '#f7cad0'
+            ];
 
-    var valores = [];
+            var valores = [];
 
-    // Cada estilo selecionado recebe o mesmo valor
-    for (var i = 0; i < estilos.length; i++) {
-        valores.push(1);
-    }
+            for (var i = 0; i < estilos.length; i++) {
+                valores.push(1);
+            }
 
-    var ctxEstilos = document.getElementById('graficoEstilos');
+            var ctxEstilos = document.getElementById('graficoEstilos');
 
-    new Chart(ctxEstilos, {
-        type: 'doughnut',
-
-        data: {
-            labels: estilos,
-
-            datasets: [{
-                data: valores,
-                backgroundColor: [
-                    '#c9184a',
-                    '#e07a96',
-                    '#f7cad0'
-                ],
-                borderWidth: 0
-            }]
-        },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            plugins: {
-                legend: {
-                    position: 'right',
-
-                    labels: {
-                        boxWidth: 8,
-                        usePointStyle: true,
-                        font: {
-                            size: 9
+            new Chart(ctxEstilos, {
+                type: 'doughnut',
+                data: {
+                    labels: estilos,
+                    datasets: [{
+                        data: valores,
+                        backgroundColor: cores,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '58%',
+                    plugins: {
+                        legend: {
+                            display: false
                         }
                     }
                 }
+            });
+
+            var containerLegenda = document.getElementById('legendaEstilos');
+            containerLegenda.innerHTML = '';
+
+            for (var j = 0; j < estilos.length; j++) {
+                var corAtual = cores[j % cores.length];
+
+                containerLegenda.innerHTML += `
+            <div class="item-estilo-lateral">
+                <span class="bolinha-estilo" style="background-color: ${corAtual};"></span>
+                <span>${estilos[j]}</span>
+            </div>
+        `;
             }
         }
-    });
-}
 
         function atualizarGraficoBarras(comportamentos, valores) {
+            var ctxBarras = document.getElementById('graficoBarras');
 
-    var ctxBarras = document.getElementById('graficoBarras');
-
-    new Chart(ctxBarras, {
-        type: 'bar',
-
-        data: {
-            labels: comportamentos,
-
-            datasets: [{
-                label: 'Nível',
-                data: valores,
-                backgroundColor: '#eb5381',
-                borderRadius: 4,
-                barThickness: 18
-            }]
-        },
-
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    max: 5,
-
-                    ticks: {
-                        stepSize: 1
-                    }
+            new Chart(ctxBarras, {
+                type: 'bar',
+                data: {
+                    labels: comportamentos,
+                    datasets: [{
+                        label: 'Nível',
+                        data: valores,
+                        backgroundColor: '#eb5381',
+                        borderRadius: 4,
+                        barThickness: 20
+                    }]
                 },
-
-                y: {
-                    grid: {
-                        display: false
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1,
+                                color: '#000000',
+                                font: {
+                                    family: 'Jost',
+                                    size: 11.5,
+                                    weight: '500'
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#000000',
+                                font: {
+                                    family: 'Jost',
+                                    size: 12.5,
+                                    weight: '500'
+                                }
+                            }
+                        }
                     }
                 }
-            }
+            });
         }
-    });
-}
 
         // 3. Função para atualizar o Gráfico de Pizza - Fatores de Decisão
 
@@ -278,99 +291,99 @@
 
         // 4. Buscar informações da Dashboard na API
 
-        
-function verificarDashboard() {
 
-    var id_usuario = sessionStorage.ID_USUARIO;
+        function verificarDashboard() {
 
-    if (id_usuario == undefined) {
-        console.log("ID do usuário não encontrado na sessão.");
-        return;
-    }
+            var id_usuario = sessionStorage.ID_USUARIO;
 
-    fetch(`http://localhost:3333/quiz/dashboard/${id_usuario}`)
-
-        .then(function (resposta) {
-
-            if(resposta.status == 404){
-                window.location.href = "dash_sem_quiz.html";
-                return null;
-            }
-
-            if (resposta.ok == undefined) {
-                throw new Error("Erro ao buscar os dados: " + resposta.status);
-            }
-
-            return resposta.json();
-
-        })
-
-        .then(function (dados) {
-
-            //vreificação para ver se a pessoa já fez o quiz
-
-            if(dados == null){
+            if (id_usuario == undefined) {
+                console.log("ID do usuário não encontrado na sessão.");
                 return;
             }
 
-            perfilComportamental.innerHTML = dados.perfil.nome;
+            fetch(`http://localhost:3333/quiz/dashboard/${id_usuario}`)
 
-            var frequencia = "";
-            var gasto = "";
+                .then(function (resposta) {
 
-            var fatores = [];
-            var estilos = [];
+                    if (resposta.status == 404) {
+                        window.location.href = "dash_sem_quiz.html";
+                        return null;
+                    }
 
-            var comportamentos = [];
-            var valoresComportamentos = [];
+                    if (resposta.ok == undefined) {
+                        throw new Error("Erro ao buscar os dados: " + resposta.status);
+                    }
 
-            // Percorre as respostas recebidas pela API
-            for (var i = 0; i < dados.respostas.length; i++) {
+                    return resposta.json();
 
-                // Pergunta 1 - Estilos predominantes
-                if (dados.respostas[i].pergunta == 1) {
-                    estilos.push(dados.respostas[i].texto);
-                }
+                })
 
-                // Pergunta 5 - Fatores de decisão
-                if (dados.respostas[i].pergunta == 5) {
-                    fatores.push(dados.respostas[i].texto);
-                }
+                .then(function (dados) {
 
-                // Pergunta 6 - Frequência de compras
-                if (dados.respostas[i].pergunta == 6) {
-                    frequencia = dados.respostas[i].texto;
-                }
+                    //vreificação para ver se a pessoa já fez o quiz
 
-                // Pergunta 7 - Gasto mensal
-                if (dados.respostas[i].pergunta == 7) {
-                    gasto = dados.respostas[i].texto;
-                }
+                    if (dados == null) {
+                        return;
+                    }
 
-                // Pergunta 9 - Comportamento de compras
-                if (dados.respostas[i].pergunta == 9) {
-                    comportamentos.push(dados.respostas[i].rotulo);
-                    valoresComportamentos.push(Number(dados.respostas[i].valor));
-                }
-            }
+                    perfilComportamental.innerHTML = dados.perfil.nome;
 
-            // Atualiza os cards
-            frequenciaCompras.innerHTML = frequencia;
-            gastoMensal.innerHTML = gasto;
+                    var frequencia = "";
+                    var gasto = "";
 
-            // Atualiza os gráficos
-            atualizarGraficoEstilos(estilos);
-            atualizarGraficoPizza(fatores);
-            atualizarGraficoBarras(comportamentos, valoresComportamentos);
+                    var fatores = [];
+                    var estilos = [];
 
-        })
+                    var comportamentos = [];
+                    var valoresComportamentos = [];
 
-        .catch(function (erro) {
-            console.log(erro);
-        });
-}
+                    // Percorre as respostas recebidas pela API
+                    for (var i = 0; i < dados.respostas.length; i++) {
 
-verificarDashboard();
+                        // Pergunta 1 - Estilos predominantes
+                        if (dados.respostas[i].pergunta == 1) {
+                            estilos.push(dados.respostas[i].texto);
+                        }
+
+                        // Pergunta 5 - Fatores de decisão
+                        if (dados.respostas[i].pergunta == 5) {
+                            fatores.push(dados.respostas[i].texto);
+                        }
+
+                        // Pergunta 6 - Frequência de compras
+                        if (dados.respostas[i].pergunta == 6) {
+                            frequencia = dados.respostas[i].texto;
+                        }
+
+                        // Pergunta 7 - Gasto mensal
+                        if (dados.respostas[i].pergunta == 7) {
+                            gasto = dados.respostas[i].texto;
+                        }
+
+                        // Pergunta 9 - Comportamento de compras
+                        if (dados.respostas[i].pergunta == 9) {
+                            comportamentos.push(dados.respostas[i].rotulo);
+                            valoresComportamentos.push(Number(dados.respostas[i].valor));
+                        }
+                    }
+
+                    // Atualiza os cards
+                    frequenciaCompras.innerHTML = frequencia;
+                    gastoMensal.innerHTML = gasto;
+
+                    // Atualiza os gráficos
+                    atualizarGraficoEstilos(estilos);
+                    atualizarGraficoPizza(fatores);
+                    atualizarGraficoBarras(comportamentos, valoresComportamentos);
+
+                })
+
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+        }
+
+        verificarDashboard();
 
     </script>
 

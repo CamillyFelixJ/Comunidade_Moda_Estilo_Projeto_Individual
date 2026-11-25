@@ -103,17 +103,9 @@
 
                 <button
                     onclick="submeter()"
-                    id="btnSubmeter"
-                    class="btn-submeter">
-                    Enviar
-                </button>
-
-                <button
-                    onclick="avancar()"
                     id="btnProx"
-                    class="btn-prox"
-                    disabled>
-                    Avançar para próxima questão
+                    class="btn-prox">
+                    Enviar
                 </button>
 
             </div>
@@ -652,9 +644,8 @@ function calcularPerfil(respostas) {
 
         preencherHTMLcomQuestaoAtual(0);
 
-        document.getElementById('btnSubmeter').disabled = false;
-        document.getElementById('btnProx').disabled = true;
         document.getElementById('btnTentarNovamente').disabled = true;
+        document.getElementById('btnProx').disabled = false;
 
     }
 
@@ -664,20 +655,12 @@ function calcularPerfil(respostas) {
         ordemSelecionada = [];
 
         const questaoAtual = listaDeQuestoes[index];
-
         numeroDaQuestaoAtual = index;
 
-        //getElementById = encontra o elemento html pelo ID
-        //String(index + 1) = Tranformação do valor em texto. altera o conteúdo de acordo com a posição da questão. O +1 é para mostrar o númeor correto para o usuário
-        //padstart = pega o número que está na string e adiciona um 0 no começo
         document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = String(index + 1).padStart(2, '0');
-
         document.getElementById("barraProgresso").style.width = ((index + 1) / quantidadeDeQuestoes * 100) + "%";
-        //porcentagem da questão para demonstrar na barra de progresso
-
         document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
 
-        // Na última questão, o botão passa a se chamar "Finalizar"
         if (index == quantidadeDeQuestoes - 1) {
             document.getElementById("btnProx").innerHTML = "Finalizar";
         } else {
@@ -685,22 +668,17 @@ function calcularPerfil(respostas) {
         }
 
         // Atualiza o subtítulo de acordo com o tipo de questão
-
         if (questaoAtual.tipo == "escala") {
 
             document.getElementById("subtituloAlternativas").innerHTML = `
                 <em>Dê uma nota de 1 a 5 para cada afirmação:</em>
 
                 <div class="descricao-escala">
-                    1 - Não me representa |
-                    2 - Representa pouco |
-                    3 - Representa parcialmente |
-                    4 - Representa bastante |
+                    1 - Não me representa | 2 - Representa pouco | 3 - Representa parcialmente | 4 - Representa bastante |
                     5 - Me representa totalmente
                 </div>
             `;
 
-            //verifica se a questão vai precisar de registro por ordem de importância
         } else if (questaoAtual.ordenarImportancia == true) {
 
             document.getElementById("subtituloAlternativas").innerHTML =
@@ -718,60 +696,55 @@ function calcularPerfil(respostas) {
 
         }
 
-
-        document.getElementById("opcoes").innerHTML = "";
-
-        // Ativa a ordem somente nas questões necessárias
-
-        let opcoes = document.getElementById("opcoes");
+        // Limpa e atualiza a classe de ordenação uma única vez
+        const opcoes = document.getElementById("opcoes");
         opcoes.innerHTML = "";
-        opcoes.classList.toggle("ordenar-importancia", questaoAtual.ordenarImportancia);
+        opcoes.classList.toggle("ordenar-importancia", Boolean(questaoAtual.ordenarImportancia));
 
         if (questaoAtual.tipo == "escala") {
 
+            let htmlEscala = "";
+
             for (let i = 0; i < questaoAtual.afirmacoes.length; i++) {
 
-                document.getElementById("opcoes").innerHTML += `
-                    <div class="grupo-afirmacao">
-                        <p>${questaoAtual.afirmacoes[i].texto}</p>
-
-                        <div class="opcoes-escala">`;
+                let botoesEscala = "";
 
                 for (let cont = 1; cont <= 5; cont++) {
-                    document.getElementById("opcoes").innerHTML += `
+                    botoesEscala += `
                         <label>
                             <input
                                 type="radio"
                                 name="escala_${i}"
                                 value="${cont}">
-                            ${cont}
+                            <span>${cont}</span>
                         </label>
                     `;
-
                 }
 
-                document.getElementById("opcoes").innerHTML += `
+                htmlEscala += `
+                    <div class="grupo-afirmacao">
+                        <p>${questaoAtual.afirmacoes[i].texto}</p>
+                        <div class="opcoes-escala">
+                            ${botoesEscala}
                         </div>
                     </div>
                 `;
-
             }
+
+            opcoes.innerHTML = htmlEscala;
 
         } else {
 
-            // Cria as alternativas das outras perguntas
+            let htmlOpcoes = "";
 
             for (let i = 0; i < questaoAtual.opcoes.length; i++) {
 
-                let tipoInput;
+                const tipoInput = (questaoAtual.tipo == "multipla" ||
+                questaoAtual.id == 6 ||
+                questaoAtual.id == 7 ||
+                questaoAtual.id == 10) ? "checkbox" : "radio";
 
-                if (questaoAtual.tipo == "multipla") {
-                    tipoInput = "checkbox";
-                } else {
-                    tipoInput = "radio";
-                }
-
-                document.getElementById("opcoes").innerHTML += `
+                htmlOpcoes += `
                     <div>
                         <input
                             type="${tipoInput}"
@@ -785,8 +758,9 @@ function calcularPerfil(respostas) {
                         </label>
                     </div>
                 `;
-
             }
+
+            opcoes.innerHTML = htmlOpcoes;
 
         }
 
@@ -797,6 +771,23 @@ function calcularPerfil(respostas) {
         const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual];
 
         const options = document.getElementsByName("option");
+
+        // Questões 6 e 7: permitem apenas uma opção, mas as pessoas podem desmarcar
+        if (questaoAtual.id == 6 || questaoAtual.id == 7) {
+
+            if (opcaoClicada.checked == true) {
+
+                for (let i = 0; i < options.length; i++) {
+
+                    if (options[i] != opcaoClicada) {
+                        options[i].checked = false;
+                    }
+
+                }
+
+            }
+
+        }
 
         let quantidadeSelecionada = 0;
         let exclusivaSelecionada = false;
@@ -1005,13 +996,9 @@ function calcularPerfil(respostas) {
 
             });
 
-            document.getElementById('btnSubmeter').disabled = true;
-
-            document.getElementById('btnProx').disabled = false;
-
-            habilitarAlternativas(false);
-
             console.log(respostasUsuario);
+
+            avancar();
 
         }
 
@@ -1055,11 +1042,8 @@ function calcularPerfil(respostas) {
 
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
 
-            document.getElementById('btnSubmeter').disabled = false;
-
-            document.getElementById('btnProx').disabled = true;
-
         } else {
+
             finalizarJogo();
         }
     }

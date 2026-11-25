@@ -49,29 +49,45 @@
         </div>
 
         <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
           <div class="campo">
             <p>NOME</p>
-            <input id="nome_input" type="text"/>
+            <input id="nome_input" 
+            type="text"
+            placeholder="Digite o seu nome"/>
           </div>
           <div class="campo">
+
             <p>CPF</p>
-            <input id="cpf_input" type="text"/>
+            <input id="cpf_input" 
+            inputmode="numeric" 
+            placeholder="Digite o seu CPF" 
+            maxlength="11" 
+            type="number"
+            onkeyup="validar_cpf()"/>
+            <div id="validacao_cpf"></div>
+
           </div>
           <div class="campo">
             <p>E-MAIL</p>
-            <input id="email_input" type="text"/>
+            <input id="email_input" 
+            type="text"
+            placeholder="Digite o seu e-mail"
+            onkeyup="validar_email()"/>
+            <div id="validacao_email"></div>
           </div>
           <div class="campo">
             <p>SENHA</p>
-            <input id="senha_input" type="password"/>
+            <input id="senha_input" 
+            type="password"
+            placeholder="Insira sua senha"
+            onkeyup="validar_senha()"/>
+            <div id="validacao_senha"></div>
           </div>
           <div class="campo">
             <p>CONFIRMAÇÃO DA SENHA</p>
-            <input id="confirmacao_senha_input" type="password"/>
+            <input id="confirmacao_senha_input" 
+            type="password"
+            placeholder="Confirme sua senha"/>
           </div>
           <button class="botao-cadastro" onclick="cadastrar()">CADASTRAR-SE</button>
         </div>
@@ -108,8 +124,90 @@
 
 <script>
 
+  function validar_cpf() {
+
+            let cpf = cpf_input.value;
+
+            if (cpf == '') {
+                validacao_cpf.innerHTML = '';
+            } else if (cpf.length < 11 || cpf.length > 11) {
+
+                validacao_cpf.innerHTML = `<p style="color: red;">CPF inválido - ${cpf.length} dígito(s)</p>`;
+
+            } else {
+
+                validacao_cpf.innerHTML = '';
+
+            }
+
+        }
+
+  function validar_email(){
+
+    let email = email_input.value;
+
+    let arroba = false;
+    let ponto = false;
+    let posicaoArroba = -1;
+    let posicaoPonto = -1;
+
+    for (let i = 0; i < email.length; i++) {
+        if(email[i] == '@'){
+          arroba = true;
+          posicaoArroba = i;
+        }
+
+        if(email[i] == '.'){
+          ponto = true;
+          posicaoPonto = i;
+        }
+    }
+
+    if(arroba == true && ponto == true && posicaoArroba > 0 && posicaoPonto > posicaoArroba + 1 && posicaoPonto < email.length - 1){
+      validacao_email.innerHTML = '';
+    }else if(email == ''){
+      validacao_email.innerHTML = '';
+    }else{
+      validacao_email.innerHTML = `<p style="color: red;">E-mail inválido!</p>`;
+    }
+
+  }
+
+  function validar_senha(){
+    let senha = senha_input.value;
+
+    let maiuscula = false;
+    let minuscula = false;
+    let numero = false;
+    let caractere = false;
+
+    let criterios = 0;
+
+
+      if(senha.toLowerCase() != senha){
+        minuscula = true;
+        criterios++
+      }
+      if(senha.toUpperCase() != senha){
+        maiuscula = true;
+        criterios++
+      }
+      if(senha.length >= 8){
+        criterios++
+      }
+
+      if(criterios == 3){
+        validacao_senha.innerHTML = `<p style="color: green;">Senha Forte</p>`
+      }else if(criterios == 2){
+        validacao_senha.innerHTML = `<p style="color: #c79e0a;">Senha Média</p>`
+      }else{
+        validacao_senha.innerHTML = `<p style="color: red;">Senha Fraca</p>`
+      }
+  }
+
+  
+
   function cadastrar() {
-    // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
