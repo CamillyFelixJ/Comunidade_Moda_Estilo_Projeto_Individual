@@ -108,6 +108,8 @@
 
     </footer>
 
+    <script src="./js/resultadoQuiz.js"></script>
+
     <script>
 
 
@@ -118,6 +120,9 @@
         }
 
         function lerResultado() {
+
+        const CHAVE_RESULTADO = "resultado_quiz";
+
             try {
                 return JSON.parse(localStorage.getItem(CHAVE_RESULTADO));
             } catch (e) {
